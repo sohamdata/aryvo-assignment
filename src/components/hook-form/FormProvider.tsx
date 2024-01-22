@@ -3,7 +3,7 @@ import { FormProvider as Form } from 'react-hook-form';
 interface FormProviderProps {
     children: React.ReactNode;
     methods: any;
-    onSubmit: any;
+    onSubmit?: any;
     className?: string;
 }
 

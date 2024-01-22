@@ -3,20 +3,20 @@ import { useRef, useState, ChangeEvent } from "react";
 interface DocUploadProps {
     name: string;
     label: string;
-    onFileChange: (name: string, file: File) => void;
+    onFileChange: (name: string, file: File | null) => void;
 }
 
 const DocUpload = ({ name, label, onFileChange }: DocUploadProps) => {
     const hiddenInputRef = useRef<HTMLInputElement>(null);
 
-    const [preview, setPreview] = useState<any>();
+    const [file, setFile] = useState<File | null>(null);
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files && event.target.files[0];
+        const newFile = event.target.files && event.target.files[0];
 
-        if (file) {
-            onFileChange(name, file);
-            setPreview(URL.createObjectURL(file));
+        if (newFile) {
+            onFileChange(name, newFile);
+            setFile(newFile);
         }
     };
 
@@ -24,7 +24,19 @@ const DocUpload = ({ name, label, onFileChange }: DocUploadProps) => {
         hiddenInputRef.current?.click();
     };
 
-    const uploadButtonLabel = preview ? "Change doc" : label;
+    const onView = () => {
+        if (file) {
+            const fileURL = URL.createObjectURL(file);
+            window.open(fileURL, "_blank");
+        }
+    };
+
+    const onRemoveFile = () => {
+        onFileChange(name, null);
+        setFile(null);
+    };
+
+    const uploadButtonLabel = file ? `Change ${label}` : label;
 
     return (
         <div>
@@ -40,8 +52,16 @@ const DocUpload = ({ name, label, onFileChange }: DocUploadProps) => {
                 {uploadButtonLabel}
             </button>
 
-            {/* Display preview of the uploaded file */}
-            {preview && <img src={preview} alt="File Preview" style={{ maxWidth: "100%", marginTop: "10px" }} />}
+            {file && (
+                <>
+                    <span className="ml-2 cursor-pointer text-blue-500 underline" onClick={onView}>
+                        View
+                    </span>
+                    <span className="ml-2 cursor-pointer text-red-500 underline" onClick={onRemoveFile}>
+                        Remove
+                    </span>
+                </>
+            )}
         </div>
     );
 };

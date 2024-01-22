@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import FormProvider from './hook-form/FormProvider';
 import RHFInput from './hook-form/RHFInput';
@@ -6,72 +6,81 @@ import DocUpload from './DocUpload';
 
 const Documents = [
     {
-        name: 'dvlaLicense',
+        name: 'doc-dvlaLicense',
         label: 'DVLA License',
     },
     {
-        name: 'complianceCert',
+        name: 'doc-complianceCert',
         label: 'Compliance Certificate',
     },
     {
-        name: 'insuranceCert',
+        name: 'doc-insuranceCert',
         label: 'Insurance Certificate',
     },
     {
-        name: 'proofOfAddress',
+        name: 'doc-proofOfAddress',
         label: 'Proof of address',
     },
     {
-        name: 'vehiclePlate',
+        name: 'doc-vehiclePlate',
         label: 'Vehicle Plate',
     },
     {
-        name: 'hackneyBadge',
+        name: 'doc-hackneyBadge',
         label: 'Hackney Badge (if applicable)',
     },
     {
-        name: 'phBadge',
+        name: 'doc-phBadge',
         label: 'PH Badge (if applicable)',
     },
     {
-        name: 'operatorLicense',
+        name: 'doc-operatorLicense',
         label: 'Operator License (if applicable)',
     },
     {
-        name: 'publicLiability',
+        name: 'doc-publicLiability',
         label: 'Public Liability',
     },
     {
-        name: 'employersLiability',
+        name: 'doc-employersLiability',
         label: 'Employers Liability',
     },
     {
-        name: 'formB',
+        name: 'doc-formB',
         label: 'Form B',
     },
     {
-        name: 'enchancedDBS',
+        name: 'doc-enchancedDBS',
         label: 'Enchanced DBS',
     },
 ]
+
+type SelectedFiles = {
+    [key: string]: File | null;
+};
 
 const DriverSignUp = () => {
     const methods = useForm();
     const { handleSubmit } = methods;
 
-    const [selectedFiles, setSelectedFiles] = useState({});
+    const [selectedFiles, setSelectedFiles] = useState<SelectedFiles>({});
 
-    const handleFileChange = (name: string, file: File) => {
-        setSelectedFiles({
-            ...selectedFiles,
-            [name]: file,
-        });
+    const handleFileChange = (name: string, file: File | null) => {
+        const newSelectedFiles: SelectedFiles = { ...selectedFiles };
+
+        if (file) {
+            newSelectedFiles[name] = file;
+        } else {
+            delete newSelectedFiles[name];
+        }
+        setSelectedFiles(newSelectedFiles);
     };
 
-    const onSubmit = (data: any) => {
+
+    const onSubmit = useCallback((data: any) => {
         const formDataWithFiles = { ...data, ...selectedFiles };
         console.log(formDataWithFiles);
-    };
+    }, [selectedFiles]);
 
     return (
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 gap-8">
@@ -215,12 +224,9 @@ const DriverSignUp = () => {
                         onChange={(event) => handleFileChange('dvlaLicense', event)}
                     /> */}
 
-                    {/* <DocUpload name={`dvlaLicense`} label={`DVLA License`} onFileChange={handleFileChange} /> */}
-
                     {Documents.map((doc) => (
                         <DocUpload key={doc.name} name={doc.name} label={doc.label} onFileChange={handleFileChange} />
                     ))}
-
 
                 </div>
                 <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
