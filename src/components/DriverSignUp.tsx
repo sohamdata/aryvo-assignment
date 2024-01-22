@@ -59,7 +59,7 @@ type SelectedFiles = {
     [key: string]: File | null;
 };
 
-const DriverSignUp = () => {
+export default function DriverSignUp() {
     const methods = useForm();
     const { handleSubmit } = methods;
 
@@ -83,9 +83,9 @@ const DriverSignUp = () => {
     }, [selectedFiles]);
 
     return (
-        <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 gap-8">
+        <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-10 gap-4">
             {/* Left col */}
-            <div className="col-span-1 p-4">
+            <div className="col-span-6 p-4">
                 <div>
                     {/* Section 1 */}
                     <h2 className="text-2xl font-bold mb-4">Signup a driver</h2>
@@ -212,10 +212,10 @@ const DriverSignUp = () => {
             </div>
 
             {/* Right col */}
-            <div className="col-span-1 p-4">
+            <div className="col-span-4 p-4">
                 <h2 className="text-2xl font-bold mb-4">Documents and expiry dates</h2>
 
-                <div className=" mb-4 flex flex-col gap-2">
+                <div className="mb-4 flex flex-col gap-2">
 
                     {/* <input
                         type="file"
@@ -236,5 +236,3 @@ const DriverSignUp = () => {
         </FormProvider>
     );
 };
-
-export default DriverSignUp;

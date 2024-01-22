@@ -3,7 +3,7 @@ import DriverSignUp from "./components/DriverSignUp";
 function App() {
 
   return (
-    <div className="container px-3 mt-8">
+    <div className="container p-3">
       <DriverSignUp />
     </div>
   );
