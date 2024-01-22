@@ -17,7 +17,7 @@ export default function RHFInput({ name, ...other }: RHFInputProps) {
                     {...field}
                     {...other}
                     value={field.value || ''}
-                    className="py-2 px-3 border border-gray-300 rounded w-full text-gray-700 leading-tight focus:outline-none focus:border-indigo-500"
+                    className={`p-2 border border-gray-300 rounded w-full text-black leading-tight focus:outline-none focus:border-indigo-500 ${other.className}`}
                 />
             )}
         />
