@@ -4,23 +4,71 @@ import FormProvider from './hook-form/FormProvider';
 import RHFInput from './hook-form/RHFInput';
 import DocUpload from './DocUpload';
 
+const Documents = [
+    {
+        name: 'dvlaLicense',
+        label: 'DVLA License',
+    },
+    {
+        name: 'complianceCert',
+        label: 'Compliance Certificate',
+    },
+    {
+        name: 'insuranceCert',
+        label: 'Insurance Certificate',
+    },
+    {
+        name: 'proofOfAddress',
+        label: 'Proof of address',
+    },
+    {
+        name: 'vehiclePlate',
+        label: 'Vehicle Plate',
+    },
+    {
+        name: 'hackneyBadge',
+        label: 'Hackney Badge (if applicable)',
+    },
+    {
+        name: 'phBadge',
+        label: 'PH Badge (if applicable)',
+    },
+    {
+        name: 'operatorLicense',
+        label: 'Operator License (if applicable)',
+    },
+    {
+        name: 'publicLiability',
+        label: 'Public Liability',
+    },
+    {
+        name: 'employersLiability',
+        label: 'Employers Liability',
+    },
+    {
+        name: 'formB',
+        label: 'Form B',
+    },
+    {
+        name: 'enchancedDBS',
+        label: 'Enchanced DBS',
+    },
+]
+
 const DriverSignUp = () => {
     const methods = useForm();
     const { handleSubmit } = methods;
 
     const [selectedFiles, setSelectedFiles] = useState({});
 
-    const handleFileChange = (name: string, event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.files && event.target.files.length > 0) {
-            setSelectedFiles({
-                ...selectedFiles,
-                [name]: event.target.files[0],
-            });
-        }
+    const handleFileChange = (name: string, file: File) => {
+        setSelectedFiles({
+            ...selectedFiles,
+            [name]: file,
+        });
     };
 
     const onSubmit = (data: any) => {
-        // console.log(data);
         const formDataWithFiles = { ...data, ...selectedFiles };
         console.log(formDataWithFiles);
     };
@@ -158,7 +206,7 @@ const DriverSignUp = () => {
             <div className="col-span-1 p-4">
                 <h2 className="text-2xl font-bold mb-4">Documents and expiry dates</h2>
 
-                <div className="flex flex-col mb-4">
+                <div className=" mb-4 flex flex-col gap-2">
 
                     {/* <input
                         type="file"
@@ -167,7 +215,13 @@ const DriverSignUp = () => {
                         onChange={(event) => handleFileChange('dvlaLicense', event)}
                     /> */}
 
-                    <DocUpload name={`dvlaLicense`} label={`dvlaLicense`} />
+                    {/* <DocUpload name={`dvlaLicense`} label={`DVLA License`} onFileChange={handleFileChange} /> */}
+
+                    {Documents.map((doc) => (
+                        <DocUpload key={doc.name} name={doc.name} label={doc.label} onFileChange={handleFileChange} />
+                    ))}
+
+
                 </div>
                 <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
                     Submit
