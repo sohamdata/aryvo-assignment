@@ -12,8 +12,8 @@ export default function DocUpload({ name, label, onFileChange }: DocUploadProps)
     const [file, setFile] = useState<File | null>(null);
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-        // const newFile = event.target.files && event.target.files[0];
-        const newFile = event.currentTarget.files && event.currentTarget.files[0];
+        const newFile = event.target.files && event.target.files[0];
+        // const newFile = event.currentTarget.files && event.currentTarget.files[0];
 
         if (newFile) {
             onFileChange(name, newFile);

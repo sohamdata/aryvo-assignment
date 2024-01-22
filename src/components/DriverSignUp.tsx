@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import FormProvider from './hook-form/FormProvider';
 import RHFInput from './hook-form/RHFInput';
 import DocUpload from './DocUpload';
+import RHFDocUpload from './hook-form/RHFDocUpload';
 
 const Documents = [
     {
@@ -78,7 +79,7 @@ export default function DriverSignUp() {
 
 
     const onSubmit = useCallback((data: any) => {
-        const formDataWithFiles = { ...data, ...selectedFiles };
+        const formDataWithFiles = { ...selectedFiles };
         console.log(formDataWithFiles);
     }, [selectedFiles]);
 
@@ -225,7 +226,8 @@ export default function DriverSignUp() {
                     /> */}
 
                     {Documents.map((doc) => (
-                        <DocUpload key={doc.name} name={doc.name} label={doc.label} onFileChange={handleFileChange} />
+                        // <DocUpload key={doc.name} name={doc.name} label={doc.label} onFileChange={handleFileChange} />
+                        <RHFDocUpload key={doc.name} name={doc.name} label={doc.label} onFileChange={handleFileChange} />
                     ))}
 
                 </div>
