@@ -1,13 +1,28 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import FormProvider from './hook-form/FormProvider';
 import RHFInput from './hook-form/RHFInput';
+import DocUpload from './DocUpload';
 
 const DriverSignUp = () => {
     const methods = useForm();
     const { handleSubmit } = methods;
 
+    const [selectedFiles, setSelectedFiles] = useState({});
+
+    const handleFileChange = (name: string, event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files && event.target.files.length > 0) {
+            setSelectedFiles({
+                ...selectedFiles,
+                [name]: event.target.files[0],
+            });
+        }
+    };
+
     const onSubmit = (data: any) => {
-        console.log(data);
+        // console.log(data);
+        const formDataWithFiles = { ...data, ...selectedFiles };
+        console.log(formDataWithFiles);
     };
 
     return (
@@ -34,7 +49,7 @@ const DriverSignUp = () => {
                     </div>
 
                     {/* Section 1.2 */}
-                    <div className="mb-4 flex justify-between">
+                    <div className="mb-4 flex justify-start gap-3">
                         <div className="flex flex-col">
                             <label htmlFor="accountingRef" className="text-xs mb-0.5">Accounting Ref</label>
                             <RHFInput name="accountingRef" type="text" />
@@ -97,28 +112,31 @@ const DriverSignUp = () => {
 
                     {/* Section 4 */}
                     <h3 className="text-lg font-semibold mb-2">Vehicle Information</h3>
+                    <div className="flex flex-col mb-2">
+                        <label htmlFor="vehicleRegNumber" className="text-xs mb-0.5">Registration</label>
+                        <RHFInput name="vehicleRegNumber" type="text" className='w-1/4' />
+                    </div>
+
                     <div className="mb-4 flex justify-between">
                         <div className="flex flex-col mb-2">
-                            <label htmlFor="vehicleRegNumber" className="text-xs mb-0.5">Registration</label>
-                            <RHFInput name="vehicleRegNumber" type="text" />
-                        </div>
-                        <div className="flex flex-col mb-2">
                             <label htmlFor="model" className="text-xs mb-0.5">Model</label>
-                            <RHFInput name="model" type="text" />
+                            <RHFInput name="model" type="text" className='w-2/3' />
                         </div>
                         <div className="flex flex-col mb-2">
                             <label htmlFor="passengerCapacity" className="text-xs mb-0.5">Passenger Capacity</label>
-                            <RHFInput name="passengerCapacity" type="text" />
+                            <RHFInput name="passengerCapacity" type="text" className='w-2/3' />
                         </div>
                         <div className="flex flex-col mb-2">
                             <label htmlFor="rideType" className="text-xs mb-0.5">Ride Type</label>
-                            <RHFInput name="rideType" type="text" />
+                            <RHFInput name="rideType" type="text" className='w-2/3' />
                         </div>
                         <div className="flex flex-col mb-2">
                             <label htmlFor="bodyType" className="text-xs mb-0.5">Body Type</label>
-                            <RHFInput name="bodyType" type="text" />
+                            <RHFInput name="bodyType" type="text" className='w-2/3' />
                         </div>
+                    </div>
 
+                    <div className="mb-4 flex justify-start gap-5">
                         <div className="flex flex-col mb-2">
                             <label htmlFor="plateNumber" className="text-xs mb-0.5">Plate Number</label>
                             <RHFInput name="plateNumber" type="text" />
@@ -127,11 +145,10 @@ const DriverSignUp = () => {
                             <label htmlFor="issuedBy" className="text-xs mb-0.5">Issued by</label>
                             <RHFInput name="issuedBy" type="text" />
                         </div>
-
-                        <div className="flex flex-col mb-2">
-                            <label htmlFor="insuranceCertNumber" className="text-xs mb-0.5">Insurance Certificate Number</label>
-                            <RHFInput name="insuranceCertNumber" type="text" />
-                        </div>
+                    </div>
+                    <div className="flex flex-col mb-2">
+                        <label htmlFor="insuranceCertNumber" className="text-xs mb-0.5">Insurance Certificate Number</label>
+                        <RHFInput name="insuranceCertNumber" type="text" className='w-1/4' />
                     </div>
 
                 </div>
@@ -139,14 +156,19 @@ const DriverSignUp = () => {
 
             {/* Right col */}
             <div className="col-span-1 p-4">
-                <div>
-                    <h2 className="text-2xl font-bold mb-4">Documents and expiry dates</h2>
-                    <div className="flex flex-col">
-                    </div>
-                </div>
-            </div>
+                <h2 className="text-2xl font-bold mb-4">Documents and expiry dates</h2>
 
-            <div className="col-span-2 p-4">
+                <div className="flex flex-col mb-4">
+
+                    {/* <input
+                        type="file"
+                        id="dvlaLicense"
+                        name="dvlaLicense"
+                        onChange={(event) => handleFileChange('dvlaLicense', event)}
+                    /> */}
+
+                    <DocUpload name={`dvlaLicense`} label={`dvlaLicense`} />
+                </div>
                 <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
                     Submit
                 </button>
