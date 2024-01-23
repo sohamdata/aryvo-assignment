@@ -6,6 +6,7 @@ import RHFDocUpload from './hook-form/RHFDocUpload';
 import RHFPhone from './hook-form/RHFPhone';
 import { DOCUMENT_TYPES } from '../config';
 import { checkAccountExists, validateLicense } from '../mockAPIS';
+import ToggleSwitch from './ToggleSwitch';
 
 
 type SelectedFiles = {
@@ -35,17 +36,19 @@ export default function DriverSignUp() {
     };
 
 
-    const onSubmit = useCallback((data: any) => {
+    const onSubmit = (data: any) => {
         // Remove the document fields from the original form values
 
         const formValuesWithoutDocs = Object.fromEntries(
             Object.entries(data).filter(([key]) => !key.startsWith('doc-'))
         );
 
-        const formDataWithFiles = { ...formValuesWithoutDocs, ...selectedFiles };
+        const toggles = { toggle_ppe, toggle_dis, toggle_prem, toggle_HC, toggle_pet, toggle_wide };
+
+        const formDataWithFiles = { ...formValuesWithoutDocs, ...selectedFiles, ...toggles };
 
         console.log(formDataWithFiles);
-    }, [methods, selectedFiles]);
+    }
 
     const onContinue = async () => {
         const { email } = methods.getValues();
@@ -78,6 +81,13 @@ export default function DriverSignUp() {
             console.log('License not found');
         }
     }
+
+    const [toggle_ppe, setPpeBarrierToggle] = useState(false);
+    const [toggle_dis, setDisabledAccessToggle] = useState(false);
+    const [toggle_prem, setPremiumVehicleToggle] = useState(false);
+    const [toggle_HC, setHackneyCarriageToggle] = useState(false);
+    const [toggle_pet, setPetsToggle] = useState(false);
+    const [toggle_wide, setWideVehicleToggle] = useState(false);
 
     return (
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-12 gap-4">
@@ -204,22 +214,22 @@ export default function DriverSignUp() {
                         <RHFInput name="vehicleRegNumber" type="text" className='w-1/4' />
                     </div>
 
-                    <div className="mb-4 flex justify-between">
+                    <div className="mb-4 flex justify-start">
                         <div className="flex flex-col mb-2">
                             <label htmlFor="model" className="text-xs mb-0.5">Model</label>
-                            <RHFInput name="model" type="text" className='w-2/3' />
+                            <RHFInput name="model" type="text" className='w-1/2' />
                         </div>
                         <div className="flex flex-col mb-2">
                             <label htmlFor="passengerCapacity" className="text-xs mb-0.5">Passenger Capacity</label>
-                            <RHFInput name="passengerCapacity" type="text" className='w-2/3' />
+                            <RHFInput name="passengerCapacity" type="text" className='w-1/2' />
                         </div>
                         <div className="flex flex-col mb-2">
                             <label htmlFor="rideType" className="text-xs mb-0.5">Ride Type</label>
-                            <RHFInput name="rideType" type="text" className='w-2/3' />
+                            <RHFInput name="rideType" type="text" className='w-1/2' />
                         </div>
                         <div className="flex flex-col mb-2">
                             <label htmlFor="bodyType" className="text-xs mb-0.5">Body Type</label>
-                            <RHFInput name="bodyType" type="text" className='w-2/3' />
+                            <RHFInput name="bodyType" type="text" className='w-1/2' />
                         </div>
                     </div>
 
@@ -234,6 +244,45 @@ export default function DriverSignUp() {
                         </div>
                     </div>
                     <div className="flex flex-col mb-2">
+                        {/* // add toggle for: PPE barrier, disabled access, premium vehicle, Hackney Carriage, Pets, Wide vehicle */}
+                        <div className="flex flex-col mb-2 gap-2 w-1/4">
+                            <ToggleSwitch
+                                label="PPE Barrier"
+                                toggleState={toggle_ppe}
+                                onToggle={() => setPpeBarrierToggle(!toggle_ppe)}
+                            />
+
+                            <ToggleSwitch
+                                label="Disabled Access"
+                                toggleState={toggle_dis}
+                                onToggle={() => setDisabledAccessToggle(!toggle_dis)}
+                            />
+
+                            <ToggleSwitch
+                                label="Premium Vehicle"
+                                toggleState={toggle_prem}
+                                onToggle={() => setPremiumVehicleToggle(!toggle_prem)}
+                            />
+
+                            <ToggleSwitch
+                                label="Hackney Carriage"
+                                toggleState={toggle_HC}
+                                onToggle={() => setHackneyCarriageToggle(!toggle_HC)}
+                            />
+
+                            <ToggleSwitch
+                                label="Pets"
+                                toggleState={toggle_pet}
+                                onToggle={() => setPetsToggle(!toggle_pet)}
+                            />
+
+                            <ToggleSwitch
+                                label="Wide Vehicle"
+                                toggleState={toggle_wide}
+                                onToggle={() => setWideVehicleToggle(!toggle_wide)}
+                            />
+
+                        </div>
                         <label htmlFor="insuranceCertNumber" className="text-xs mb-0.5">Insurance Certificate Number</label>
                         <RHFInput name="insuranceCertNumber" type="text" className='w-1/4' />
                     </div>
