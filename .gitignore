@@ -18,6 +18,7 @@ dist-ssr
 .idea
 .DS_Store
 *.suo
+*.s0h4m
 *.ntvs*
 *.njsproj
 *.sln
@@ -26,3 +27,4 @@ dist-ssr
 # environment
 .env
 .env.local
+todo
