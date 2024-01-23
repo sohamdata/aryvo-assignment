@@ -28,3 +28,11 @@ dist-ssr
 .env
 .env.local
 todo
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+.f4fo
+next-env.d.ts

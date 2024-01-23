@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import FormProvider from './hook-form/FormProvider';
 import RHFInput from './hook-form/RHFInput';
 import RHFDocUpload from './hook-form/RHFDocUpload';
+import RHFPhone from './hook-form/RHFPhone';
 // import DocUpload from './DocUpload';
 
 const Documents = [
@@ -108,7 +109,8 @@ export default function DriverSignUp() {
                         </div>
                         <div className="flex flex-col">
                             <label htmlFor="contactNumber" className="text-xs mb-0.5">Enter Contact Number</label>
-                            <RHFInput name="contactNumber" type="text" />
+                            {/* <RHFInput name="contactNumber" type="text" /> */}
+                            <RHFPhone name="contactNumber" />
                         </div>
                         <div className="flex flex-col">
                             <label htmlFor="email" className="text-xs mb-0.5">Enter Email Address</label>
