@@ -4,58 +4,9 @@ import FormProvider from './hook-form/FormProvider';
 import RHFInput from './hook-form/RHFInput';
 import RHFDocUpload from './hook-form/RHFDocUpload';
 import RHFPhone from './hook-form/RHFPhone';
-// import DocUpload from './DocUpload';
+import { DOCUMENT_TYPES } from '../config';
+import { checkAccountExists, validateLicense } from '../mockAPIS';
 
-const Documents = [
-    {
-        name: 'doc-dvlaLicense',
-        label: 'DVLA License',
-    },
-    {
-        name: 'doc-complianceCert',
-        label: 'Compliance Certificate',
-    },
-    {
-        name: 'doc-insuranceCert',
-        label: 'Insurance Certificate',
-    },
-    {
-        name: 'doc-proofOfAddress',
-        label: 'Proof of address',
-    },
-    {
-        name: 'doc-vehiclePlate',
-        label: 'Vehicle Plate',
-    },
-    {
-        name: 'doc-hackneyBadge',
-        label: 'Hackney Badge (if applicable)',
-    },
-    {
-        name: 'doc-phBadge',
-        label: 'PH Badge (if applicable)',
-    },
-    {
-        name: 'doc-operatorLicense',
-        label: 'Operator License (if applicable)',
-    },
-    {
-        name: 'doc-publicLiability',
-        label: 'Public Liability',
-    },
-    {
-        name: 'doc-employersLiability',
-        label: 'Employers Liability',
-    },
-    {
-        name: 'doc-formB',
-        label: 'Form B',
-    },
-    {
-        name: 'doc-enchancedDBS',
-        label: 'Enchanced DBS',
-    },
-]
 
 type SelectedFiles = {
     [key: string]: {
@@ -69,6 +20,8 @@ export default function DriverSignUp() {
     const { handleSubmit } = methods;
 
     const [selectedFiles, setSelectedFiles] = useState<SelectedFiles>({});
+    const [accountExists, setAccountExists] = useState(false);
+    const [licenseDetails, setLicenseDetails] = useState<any>(undefined);
 
     const handleFileChange = (name: string, file: File | null, expiryDate: string | null) => {
         const newSelectedFiles: SelectedFiles = { ...selectedFiles };
@@ -94,10 +47,42 @@ export default function DriverSignUp() {
         console.log(formDataWithFiles);
     }, [methods, selectedFiles]);
 
+    const onContinue = async () => {
+        const { email } = methods.getValues();
+
+        const accountExists = await checkAccountExists({ email });
+        if (accountExists) {
+            console.log('Account exists');
+            setAccountExists(true);
+            methods.setError('email', {
+                type: 'manual',
+                message: 'An account with this email already exists',
+            });
+        } else {
+            setAccountExists(false);
+            console.log('No account exists');
+            methods.clearErrors('email');
+        }
+    }
+
+    const onValidateLicense = async () => {
+        const { dvlaLicenseNumber } = methods.getValues();
+
+        const response = await validateLicense({ license: dvlaLicenseNumber });
+
+        if (response) {
+            setLicenseDetails(response);
+            console.log('License details', response);
+        } else {
+            setLicenseDetails(null);
+            console.log('License not found');
+        }
+    }
+
     return (
-        <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-10 gap-4">
+        <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-12 gap-4">
             {/* Left col */}
-            <div className="col-span-6 p-4">
+            <div className="col-span-7 p-4">
                 <div>
                     {/* Section 1 */}
                     <h2 className="text-2xl font-bold mb-4">Signup a driver</h2>
@@ -118,31 +103,44 @@ export default function DriverSignUp() {
                         </div>
                     </div>
 
+                    <div className='my-4 flex flex-col'>
+                        <button
+                            type="button"
+                            className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 w-1/6 self-end'
+                            onClick={onContinue}
+                        >
+                            Check
+                        </button>
+                        {accountExists && (
+                            <p className='text-red-500 text-xs mt-2'>An account already exists with these contact details, you need to merge the accounts, or use different details</p>
+                        )}
+                    </div>
+
                     {/* Section 1.2 */}
                     <div className="mb-4 flex justify-start gap-3">
                         <div className="flex flex-col">
                             <label htmlFor="accountingRef" className="text-xs mb-0.5">Accounting Ref</label>
-                            <RHFInput name="accountingRef" type="text" />
+                            <RHFInput name="accountingRef" type="text" className='w-4/5' />
                         </div>
                         <div className="flex flex-col">
                             <label htmlFor="nominalCode" className="text-xs mb-0.5">Nominal Code</label>
-                            <RHFInput name="nominalCode" type="text" />
+                            <RHFInput name="nominalCode" type="text" className='w-4/5' />
                         </div>
                         <div className="flex flex-col">
                             <label htmlFor="callSign" className="text-xs mb-0.5">Call Sign</label>
-                            <RHFInput name="callSign" type="text" />
+                            <RHFInput name="callSign" type="text" className='w-4/5' />
                         </div>
                         <div className="flex flex-col">
                             <label htmlFor="commission" className="text-xs mb-0.5">Commission %</label>
-                            <RHFInput name="commission" type="text" />
+                            <RHFInput name="commission" type="text" className='w-4/5' />
                         </div>
                         <div className="flex flex-col">
                             <label htmlFor="weeklyCharge" className="text-xs mb-0.5">Weekly Charge</label>
-                            <RHFInput name="weeklyCharge" type="text" />
+                            <RHFInput name="weeklyCharge" type="text" className='w-4/5' />
                         </div>
                         <div className="flex flex-col">
                             <label htmlFor="driverGroup" className="text-xs mb-0.5">Driver Group</label>
-                            <RHFInput name="driverGroup" type="text" />
+                            <RHFInput name="driverGroup" type="text" className='w-4/5' />
                         </div>
                     </div>
 
@@ -157,9 +155,28 @@ export default function DriverSignUp() {
                     {/* Section 2 */}
                     <div className="mb-4">
                         <h3 className="text-lg font-semibold mb-2">License Information</h3>
-                        <div className="flex flex-col mb-2">
-                            <label htmlFor="dvlaLicenseNumber" className="text-xs mb-0.5">DVLA License Number</label>
-                            <RHFInput name="dvlaLicenseNumber" type="text" />
+                        <div className="flex justify-between">
+                            <div className="flex flex-col mb-2">
+                                <label htmlFor="dvlaLicenseNumber" className="text-xs mb-0.5">DVLA License Number</label>
+                                <RHFInput name="dvlaLicenseNumber" type="text" />
+                                <button
+                                    type="button"
+                                    className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+                                    onClick={onValidateLicense}
+                                >
+                                    Validate License
+                                </button>
+                            </div>
+                            {licenseDetails && (
+                                <>
+                                    <div>{licenseDetails.sex}</div>
+                                    <div>{licenseDetails.dob}</div>
+                                    <div>{licenseDetails.addressmatch}</div>
+                                    <div>{licenseDetails.type}</div>
+                                    <div>{licenseDetails.status}</div>
+                                </>
+                            )}
+
                         </div>
                     </div>
 
@@ -225,19 +242,10 @@ export default function DriverSignUp() {
             </div>
 
             {/* Right col */}
-            <div className="col-span-4 p-4">
+            <div className="col-span-5 p-4">
                 <h2 className="text-2xl font-bold mb-4">Documents and expiry dates</h2>
-
                 <div className="mb-4 flex flex-col gap-2">
-
-                    {/* <input
-                        type="file"
-                        id="dvlaLicense"
-                        name="dvlaLicense"
-                        onChange={(event) => handleFileChange('dvlaLicense', event)}
-                    /> */}
-
-                    {Documents.map((doc) => (
+                    {DOCUMENT_TYPES.map((doc) => (
                         <RHFDocUpload
                             key={doc.name}
                             name={doc.name}
@@ -245,9 +253,8 @@ export default function DriverSignUp() {
                             onFileChange={handleFileChange}
                         />
                     ))}
-
                 </div>
-                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+                <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
                     Submit
                 </button>
             </div>

@@ -39,7 +39,7 @@ const RHFDocUpload: React.FC<RHFDocUploadProps> = ({ name, label, onFileChange }
             name={name}
             render={({ field }) => (
                 <div className="mb-4">
-                    <label className="flex justify-between items-center px-4 py-2 bg-white text-gray-800 rounded-sm shadow-md cursor-pointer hover:bg-gray-100">
+                    <label className="flex justify-between items-center px-4 py-2 bg-white text-gray-800 rounded-sm shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] cursor-pointer hover:bg-gray-100">
                         {label}
                         <CiFileOn />
                         <input
