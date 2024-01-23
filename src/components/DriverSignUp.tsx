@@ -2,8 +2,8 @@ import { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import FormProvider from './hook-form/FormProvider';
 import RHFInput from './hook-form/RHFInput';
-import DocUpload from './DocUpload';
 import RHFDocUpload from './hook-form/RHFDocUpload';
+// import DocUpload from './DocUpload';
 
 const Documents = [
     {
@@ -79,9 +79,16 @@ export default function DriverSignUp() {
 
 
     const onSubmit = useCallback((data: any) => {
-        const formDataWithFiles = { ...selectedFiles };
+        // Remove the document fields from the original form values
+
+        const formValuesWithoutDocs = Object.fromEntries(
+            Object.entries(data).filter(([key]) => !key.startsWith('doc-'))
+        );
+
+        const formDataWithFiles = { ...formValuesWithoutDocs, ...selectedFiles };
+
         console.log(formDataWithFiles);
-    }, [selectedFiles]);
+    }, [methods, selectedFiles]);
 
     return (
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-10 gap-4">
@@ -226,8 +233,12 @@ export default function DriverSignUp() {
                     /> */}
 
                     {Documents.map((doc) => (
-                        // <DocUpload key={doc.name} name={doc.name} label={doc.label} onFileChange={handleFileChange} />
-                        <RHFDocUpload key={doc.name} name={doc.name} label={doc.label} onFileChange={handleFileChange} />
+                        <RHFDocUpload
+                            key={doc.name}
+                            name={doc.name}
+                            label={doc.label}
+                            onFileChange={handleFileChange}
+                        />
                     ))}
 
                 </div>

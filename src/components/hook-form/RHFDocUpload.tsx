@@ -1,5 +1,6 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 import { useFormContext, Controller } from 'react-hook-form';
+import { CiFileOn } from 'react-icons/ci';
 
 type RHFDocUploadProps = {
     name: string;
@@ -12,9 +13,7 @@ const RHFDocUpload: React.FC<RHFDocUploadProps> = ({ name, label, onFileChange }
 
     const [file, setFile] = useState<File | null>(null);
 
-    const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const newFile = event.target.files && event.target.files[0];
-
+    const handleFileChange = (newFile: File) => {
         if (newFile) {
             onFileChange(name, newFile);
             setFile(newFile);
@@ -39,14 +38,18 @@ const RHFDocUpload: React.FC<RHFDocUploadProps> = ({ name, label, onFileChange }
             name={name}
             render={({ field }) => (
                 <div className="mb-4">
-                    <label className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer">
+                    <label className="flex justify-between items-center px-4 py-2 bg-white text-gray-800 rounded-sm shadow-md cursor-pointer hover:bg-gray-100">
                         {label}
+                        <CiFileOn />
                         <input
                             type="file"
                             className="hidden"
                             onChange={(e) => {
-                                field.onChange(e.target.files[0]);
-                                handleFileChange(e);
+                                const newFile = e.target.files && e.target.files[0];
+                                if (newFile) {
+                                    field.onChange(newFile);
+                                    handleFileChange(newFile);
+                                }
                             }}
                             onBlur={field.onBlur}
                         />
@@ -56,7 +59,13 @@ const RHFDocUpload: React.FC<RHFDocUploadProps> = ({ name, label, onFileChange }
                             <span className="cursor-pointer text-blue-500 underline" onClick={onView}>
                                 View
                             </span>
-                            <span className="ml-2 cursor-pointer text-red-500 underline" onClick={onRemoveFile}>
+                            <span
+                                className="ml-2 cursor-pointer text-red-500 underline"
+                                onClick={(_) => {
+                                    field.onChange(null);
+                                    onRemoveFile();
+                                }}
+                            >
                                 Remove
                             </span>
                         </div>
