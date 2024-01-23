@@ -5,19 +5,19 @@ import { CiFileOn } from 'react-icons/ci';
 type RHFDocUploadProps = {
     name: string;
     label: string;
-    onFileChange: (name: string, file: File | null) => void;
+    onFileChange: (name: string, file: File | null, expiryDate: string | null) => void;
 };
 
 const RHFDocUpload: React.FC<RHFDocUploadProps> = ({ name, label, onFileChange }) => {
     const { control } = useFormContext();
 
     const [file, setFile] = useState<File | null>(null);
+    const [expiryDate, setExpiryDate] = useState<string | null>(null);
 
-    const handleFileChange = (newFile: File) => {
-        if (newFile) {
-            onFileChange(name, newFile);
-            setFile(newFile);
-        }
+    const handleFileChange = (newFile: File | null, newExpiryDate: string | null) => {
+        setFile(newFile);
+        setExpiryDate(newExpiryDate);
+        onFileChange(name, newFile, newExpiryDate);
     };
 
     const onView = () => {
@@ -28,8 +28,9 @@ const RHFDocUpload: React.FC<RHFDocUploadProps> = ({ name, label, onFileChange }
     };
 
     const onRemoveFile = () => {
-        onFileChange(name, null);
+        handleFileChange(null, null);
         setFile(null);
+        setExpiryDate(null);
     };
 
     return (
@@ -46,12 +47,22 @@ const RHFDocUpload: React.FC<RHFDocUploadProps> = ({ name, label, onFileChange }
                             className="hidden"
                             onChange={(e) => {
                                 const newFile = e.target.files && e.target.files[0];
-                                if (newFile) {
-                                    field.onChange(newFile);
-                                    handleFileChange(newFile);
-                                }
+                                handleFileChange(newFile, expiryDate);
+                                field.onChange(newFile);
                             }}
                             onBlur={field.onBlur}
+                        />
+
+                        {/* Expiry date input */}
+                        <input
+                            type="text"
+                            className="w-1/3 px-2 py-1 border border-gray-400 rounded-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            placeholder="Expiry date"
+                            value={expiryDate || ''}
+                            onChange={(e) => {
+                                const newExpiryDate = e.target.value;
+                                handleFileChange(file, newExpiryDate);
+                            }}
                         />
                     </label>
                     {file && (

@@ -57,7 +57,10 @@ const Documents = [
 ]
 
 type SelectedFiles = {
-    [key: string]: File | null;
+    [key: string]: {
+        file: File | null;
+        expiryDate: string;
+    };
 };
 
 export default function DriverSignUp() {
@@ -66,11 +69,11 @@ export default function DriverSignUp() {
 
     const [selectedFiles, setSelectedFiles] = useState<SelectedFiles>({});
 
-    const handleFileChange = (name: string, file: File | null) => {
+    const handleFileChange = (name: string, file: File | null, expiryDate: string | null) => {
         const newSelectedFiles: SelectedFiles = { ...selectedFiles };
 
         if (file) {
-            newSelectedFiles[name] = file;
+            newSelectedFiles[name] = { file, expiryDate: expiryDate || '' };
         } else {
             delete newSelectedFiles[name];
         }
