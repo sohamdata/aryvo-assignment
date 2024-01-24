@@ -1,9 +1,9 @@
-// TODO: implement react-hook-form, register 
-
-
 import { useState, ChangeEvent, FormEvent } from 'react';
+import { useAuth } from '../context/FirebaseContext';
 
 export default function Register() {
+
+    const firebase = useAuth();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -16,8 +16,34 @@ export default function Register() {
         setPassword(e.target.value);
     };
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        try {
+            await firebase?.signUp({ email, password });
+            console.log('User registered');
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const handleSignIn = async () => {
+        try {
+            await firebase?.signIn({ email, password });
+            console.log('User signed in');
+        } catch (error) {
+            console.log("error signing in");
+            console.log(error);
+        }
+    };
+
+    const handleSignOut = async () => {
+        try {
+            await firebase?.signOutUser();
+            console.log('User signed out');
+        } catch (error) {
+            console.log("cannot sign out");
+            console.log(error);
+        }
     };
 
     return (
@@ -55,6 +81,22 @@ export default function Register() {
                         type="submit"
                     >
                         Register
+                    </button>
+                </div>
+                <div className="mt-5 flex items-center justify-between">
+                    <button
+                        className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 text-xs'
+                        type="button"
+                        onClick={handleSignIn}
+                    >
+                        signin
+                    </button>
+                    <button
+                        className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 text-xs'
+                        type="button"
+                        onClick={handleSignOut}
+                    >
+                        signout
                     </button>
                 </div>
             </form>
