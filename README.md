@@ -1,5 +1,7 @@
 # ARYVO Assignment
 
+live demo: https://aryvo-assignment.vercel.app/
+
 ## Technologies used:
 
 - React.js (vite as the build tool)
