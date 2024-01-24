@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useFormContext, Controller } from 'react-hook-form';
+import { useState } from 'react';
+import { Controller, useFormContext } from 'react-hook-form';
 import { CiFileOn } from 'react-icons/ci';
 
 type RHFDocUploadProps = {
@@ -8,7 +8,7 @@ type RHFDocUploadProps = {
     onFileChange: (name: string, file: File | null, expiryDate: string | null) => void;
 };
 
-const RHFDocUpload: React.FC<RHFDocUploadProps> = ({ name, label, onFileChange }) => {
+export default function RHFDocUpload({ name, label, onFileChange }: RHFDocUploadProps) {
     const { control } = useFormContext();
 
     const [file, setFile] = useState<File | null>(null);
@@ -86,5 +86,3 @@ const RHFDocUpload: React.FC<RHFDocUploadProps> = ({ name, label, onFileChange }
         />
     );
 };
-
-export default RHFDocUpload;
