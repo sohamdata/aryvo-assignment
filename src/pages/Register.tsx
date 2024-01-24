@@ -1,23 +1,33 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
 import { useAuth } from '../context/FirebaseContext';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
+import FormProvider from '../components/hook-form/FormProvider';
+import RHFInput from '../components/hook-form/RHFInput';
 
 export default function Register() {
 
     const firebase = useAuth();
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const schema = Yup.object().shape({
+        email: Yup.string().email('Email must be a valid email address').required('Email is required'),
+        password: Yup.string().required('Password is required').min(6),
+    });
 
-    const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setEmail(e.target.value);
-    };
+    const methods = useForm({
+        mode: "onChange",
+        resolver: yupResolver(schema),
+    });
 
-    const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setPassword(e.target.value);
-    };
+    const {
+        // reset,
+        handleSubmit,
+        formState: { errors },
+    } = methods;
 
-    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+
+    const handleSignUp = async () => {
+        const { email, password } = methods.getValues();
         try {
             await firebase?.signUp({ email, password });
             console.log('User registered');
@@ -27,6 +37,7 @@ export default function Register() {
     };
 
     const handleSignIn = async () => {
+        const { email, password } = methods.getValues();
         try {
             await firebase?.signIn({ email, password });
             console.log('User signed in');
@@ -48,39 +59,33 @@ export default function Register() {
 
     return (
         <div className="flex justify-center items-center h-screen">
-            <form className="p-4 bg-white shadow-md rounded" onSubmit={handleSubmit}>
+            <FormProvider methods={methods} onSubmit={handleSubmit(handleSignUp)} className="p-5 bg-slate-300 shadow-md rounded-lg">
                 <div className="mb-4">
-                    <label htmlFor="email">
-                        Email
-                    </label>
-                    <input
-                        className='w-full'
-                        id="email"
-                        type="email"
-                        placeholder="Enter your email"
-                        value={email}
-                        onChange={handleEmailChange}
-                    />
+                    <label htmlFor="email">Email</label>
+                    <RHFInput name="email" type="text" placeholder='example@mail.com' />
+                    {errors.email && (
+                        <p className="text-red-500 text-sm mt-2">
+                            A valid email is required.
+                        </p>
+                    )}
                 </div>
+
                 <div className="mb-6">
-                    <label htmlFor="password">
-                        Password
-                    </label>
-                    <input
-                        className='w-full'
-                        id="password"
-                        type="password"
-                        placeholder="Enter your password"
-                        value={password}
-                        onChange={handlePasswordChange}
-                    />
+                    <label htmlFor="password">Password</label>
+                    <RHFInput name="password" type="password" placeholder='muchSecure' />
+                    {errors.password && (
+                        <p className="text-red-500 text-sm mt-2">
+                            password must be at least 6 characters.
+                        </p>
+                    )}
+
                 </div>
                 <div className="flex items-center justify-between">
                     <button
                         className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 text-xs'
                         type="submit"
                     >
-                        Register
+                        {'Sign up'}
                     </button>
                 </div>
                 <div className="mt-5 flex items-center justify-between">
@@ -89,17 +94,17 @@ export default function Register() {
                         type="button"
                         onClick={handleSignIn}
                     >
-                        signin
+                        {'Sign in'}
                     </button>
                     <button
                         className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 text-xs'
                         type="button"
                         onClick={handleSignOut}
                     >
-                        signout
+                        {'Sign out'}
                     </button>
                 </div>
-            </form>
+            </FormProvider>
         </div>
     );
 };

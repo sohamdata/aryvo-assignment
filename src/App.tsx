@@ -25,13 +25,15 @@ export default function App() {
   }, []);
 
   if (!authCheckComplete) {
-    return <div className='flex justify-center items-center h-screen animate-pulse text-2xl font-bold text-blue-500'>Loading...</div>;
+    return <div className='flex justify-center items-center h-screen animate-pulse text-2xl font-bold text-blue-500'>
+      <img src="/aryvologo.png" alt="Company Logo" className="mt-1 w-32" />
+    </div>;
   }
 
   return (
     <BrowserRouter>
       <Routes>
-        {/* <Route path="/" element={<RegisterDriver />}></Route>
+        {/* <Route path="/" element={<RegisterDriver email={activeUser.email || ''} />}></Route>
         <Route path="/signup" element={<Register />} /> */}
         <Route
           path="/"

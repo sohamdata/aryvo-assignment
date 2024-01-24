@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import FormProvider from './hook-form/FormProvider';
 import RHFInput from './hook-form/RHFInput';
@@ -192,7 +192,7 @@ export default function DriverSignUp() {
 
                     {/* Section 3 */}
                     <h3 className="text-lg font-semibold mb-2">Taxi or PH badge Information</h3>
-                    <div className="mb-4 flex justify-between">
+                    <div className="mb-4 flex justify-start gap-4">
                         <div className="flex flex-col mb-2">
                             <label htmlFor="driverType" className="text-xs mb-0.5">Driver Type</label>
                             <RHFInput name="driverType" type="text" />
@@ -217,19 +217,19 @@ export default function DriverSignUp() {
                     <div className="mb-4 flex justify-start">
                         <div className="flex flex-col mb-2">
                             <label htmlFor="model" className="text-xs mb-0.5">Model</label>
-                            <RHFInput name="model" type="text" className='w-1/2' />
+                            <RHFInput name="model" type="text" className='w-2/3' />
                         </div>
                         <div className="flex flex-col mb-2">
                             <label htmlFor="passengerCapacity" className="text-xs mb-0.5">Passenger Capacity</label>
-                            <RHFInput name="passengerCapacity" type="text" className='w-1/2' />
+                            <RHFInput name="passengerCapacity" type="text" className='w-2/3' />
                         </div>
                         <div className="flex flex-col mb-2">
                             <label htmlFor="rideType" className="text-xs mb-0.5">Ride Type</label>
-                            <RHFInput name="rideType" type="text" className='w-1/2' />
+                            <RHFInput name="rideType" type="text" className='w-2/3' />
                         </div>
                         <div className="flex flex-col mb-2">
                             <label htmlFor="bodyType" className="text-xs mb-0.5">Body Type</label>
-                            <RHFInput name="bodyType" type="text" className='w-1/2' />
+                            <RHFInput name="bodyType" type="text" className='w-2/3' />
                         </div>
                     </div>
 
