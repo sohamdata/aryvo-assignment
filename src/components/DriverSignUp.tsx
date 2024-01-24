@@ -60,7 +60,7 @@ export default function DriverSignUp() {
 
         const toggles = { toggle_ppe, toggle_dis, toggle_prem, toggle_HC, toggle_pet, toggle_wide };
 
-        console.log(selectedFiles);
+        console.log("-----selectedFiles-----", selectedFiles);
 
         const hasNullFiles = !DOCUMENT_TYPES.every((doc) => doc.name in selectedFiles);
         if (hasNullFiles) {
@@ -74,7 +74,7 @@ export default function DriverSignUp() {
 
         const formDataWithFiles = { ...formValuesWithoutDocs, ...selectedFiles, ...toggles };
 
-        console.log(formDataWithFiles);
+        console.log("-----payload-----", formDataWithFiles);
     }
 
     const onContinue = async () => {

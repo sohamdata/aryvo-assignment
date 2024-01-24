@@ -27,12 +27,6 @@ export const LICENSES = [
     }
 ];
 
-// <div>{carDetails.make}</div>
-// <div>{carDetails.color}</div>
-// <div>{carDetails.year}</div>
-// <div>{carDetails.euroStatus}</div>
-// <div>{carDetails.fuel}</div>
-
 export const CAR_DETAILS = [
     {
         vehicleRegNumber: '1234' as const,
