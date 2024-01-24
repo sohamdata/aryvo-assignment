@@ -2,7 +2,7 @@ import { FaCog, FaChevronDown } from 'react-icons/fa';
 import { MdOutlineLogout } from "react-icons/md";
 import { GoInbox } from "react-icons/go";
 import { useAuth } from '../context/FirebaseContext';
-import CustomTooltip from './CustomToolTip';
+import CustomTooltip from './ui/CustomToolTip';
 
 interface NavbarProps {
     userName: string;

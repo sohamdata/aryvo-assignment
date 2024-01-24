@@ -7,7 +7,8 @@ import RHFDocUpload from './hook-form/RHFDocUpload';
 import RHFPhone from './hook-form/RHFPhone';
 import { DOCUMENT_TYPES, DRIVER_DETAILS_SCHEMA, MOCK_DRIVER_DETAILS } from '../config';
 import { checkAccountExists, validateLicense, validateRegNumber, CAR_DETAILS, LICENSES } from '../mockAPIS';
-import ToggleSwitch from './ToggleSwitch';
+import ToggleSwitch from './ui/ToggleSwitch';
+import Button from './ui/Button';
 
 
 type SelectedFiles = {
@@ -83,10 +84,10 @@ export default function DriverSignUp() {
         if (accountExists) {
             console.log('Account exists');
             setAccountExists(true);
-            methods.setError('email', {
-                type: 'manual',
-                message: 'An account with this email already exists',
-            });
+            // methods.setError('email', {
+            //     type: 'manual',
+            //     message: 'An account with this email already exists',
+            // });
         } else {
             setAccountExists(false);
             console.log('No account exists');
@@ -140,13 +141,13 @@ export default function DriverSignUp() {
         <div className="divide-y divide-gray-200">
             <div className='py-2 flex justify-between text-sm'>
                 <div className='text-blue-700'>Register Driver</div>
-                <button className='text-amber-600' onClick={fillMockDetails}>Fill with mock details</button>
+                <button className='text-amber-600 font-bold' onClick={fillMockDetails}>Fill with mock details</button>
             </div>
             <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-12 gap-4 divide-x divide-gray-200">
                 {/* Left col */}
                 <div className="col-span-7 p-4 divide-y divide-gray-200">
                     {/* Section 1 */}
-                    <div className="mb-4">
+                    <div className="mb-4 flex flex-col">
                         <h2 className="text-2xl font-bold mb-4">Signup a driver</h2>
                         <div className="mb-4 flex justify-between">
                             <div className="flex flex-col">
@@ -183,13 +184,7 @@ export default function DriverSignUp() {
                             {accountExists && (
                                 <p className='mt-2 text-xs text-blue-700 font-semibold w-2/3'>An account already exists with these contact details, you need to merge the accounts, or use different details</p>
                             )}
-                            <button
-                                type="button"
-                                className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 text-xs'
-                                onClick={onContinue}
-                            >
-                                Check
-                            </button>
+                            <Button label='Check' type="button" onClick={onContinue} />
                         </div>
                     </div>
                     {/* Section 1.2 */}
@@ -215,13 +210,7 @@ export default function DriverSignUp() {
                         <div className="flex justify-start gap-4">
                             <div className="flex flex-col mb-2">
                                 <RHFInput name="dvlaLicenseNumber" type="text" label='DVLA License Number' />
-                                <button
-                                    type="button"
-                                    className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
-                                    onClick={onValidateLicense}
-                                >
-                                    Validate License
-                                </button>
+                                <Button label='Validate License' type="button" onClick={onValidateLicense} />
                             </div>
                             {licenseDetails && (
                                 <>
@@ -233,7 +222,6 @@ export default function DriverSignUp() {
                                     ))}
                                 </>
                             )}
-
                         </div>
                     </div>
 
@@ -253,13 +241,7 @@ export default function DriverSignUp() {
                         <div className="flex justify-start gap-4">
                             <div className="flex flex-col mb-2">
                                 <RHFInput name="vehicleRegNumber" type="text" className='w-2/3' label='Registration' />
-                                <button
-                                    type="button"
-                                    className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
-                                    onClick={onCheckCarReg}
-                                >
-                                    Validate Car
-                                </button>
+                                <Button label='Validate Car' type="button" onClick={onCheckCarReg} />
                             </div>
                             {carDetails && (
                                 <>
@@ -348,9 +330,7 @@ export default function DriverSignUp() {
                             />
                         ))}
                     </div>
-                    <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700">
-                        Submit
-                    </button>
+                    <Button label='Submit' type="submit" />
                 </div>
             </FormProvider>
         </div>
