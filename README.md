@@ -8,6 +8,7 @@
 - yup (for validation)
 - firebase (for authentication)
 - Tailwind CSS
+- Vercel (for deployment)
 
 ## How to run the project locally:
 ```bash

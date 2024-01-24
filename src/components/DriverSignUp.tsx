@@ -139,7 +139,7 @@ export default function DriverSignUp() {
 
     return (
         <div className="divide-y divide-gray-200">
-            <div className='py-2 flex justify-between text-sm'>
+            <div className='px-4 py-2 flex justify-between text-sm'>
                 <div className='text-blue-700'>Register Driver</div>
                 <button className='text-amber-600 font-bold' onClick={fillMockDetails}>Fill with mock details</button>
             </div>
