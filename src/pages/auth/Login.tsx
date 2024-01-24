@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import FormProvider from '../../components/hook-form/FormProvider';
 import RHFInput from '../../components/hook-form/RHFInput';
 
-export default function Register() {
+export default function Login() {
     const firebase = useAuth();
     const navigate = useNavigate();
 
@@ -23,26 +23,25 @@ export default function Register() {
     const { handleSubmit, formState: { errors } } = methods;
 
     const handleSignUp = async () => {
+        navigate('/signup');
+    };
+
+    const handleSignIn = async () => {
         const { email, password } = methods.getValues();
         try {
-            await firebase?.signUp({ email, password });
-            console.log('User registered');
+            await firebase?.signIn({ email, password });
+            console.log('User logged in');
         } catch (error) {
             console.log(error);
         }
     };
 
-    const handleSignIn = () => {
-        navigate('/signin');
-    };
-
     return (
         <div className="flex justify-center items-center h-screen bg-gray-200">
-            <FormProvider methods={methods} onSubmit={handleSubmit(handleSignUp)} className="p-8 w-96 bg-white shadow-md rounded-lg">
+            <FormProvider methods={methods} onSubmit={handleSubmit(handleSignIn)} className="p-8 w-96 bg-white shadow-md rounded-lg">
                 <div className="mb-6 text-center items-center flex flex-col">
                     <img src="/aryvologo.png" alt="Company Logo" className="mb-5 w-32" />
-                    <h1 className="text-2xl font-bold">Sign Up</h1>
-                    <p className="text-gray-500 text-sm">Create your account</p>
+                    <h1 className="text-2xl font-bold">Sign In</h1>
                 </div>
 
                 <div className="mb-4">
@@ -68,16 +67,16 @@ export default function Register() {
                         className="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 text-sm"
                         type="submit"
                     >
-                        Sign Up
+                        Sign In
                     </button>
 
                     <div className="flex items-center justify-center text-sm">
-                        <span className="text-gray-600">Already have an account?</span>
+                        <span className="text-gray-600">Don't have an account?</span>
                         <span
                             className="ml-2 cursor-pointer text-blue-500 underline"
-                            onClick={handleSignIn}
+                            onClick={handleSignUp}
                         >
-                            Sign In
+                            Sign Up
                         </span>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Register from "./pages/auth/Register";
+import Login from "./pages/auth/Login";
 import RegisterDriver from "./pages/RegisterDriver";
 import { auth, onAuthStateChanged, User } from './config/firebase';
 
@@ -42,6 +43,10 @@ export default function App() {
         <Route
           path="/signup"
           element={activeUser ? <Navigate to="/" replace /> : <Register />}
+        />
+        <Route
+          path="/signin"
+          element={activeUser ? <Navigate to="/" replace /> : <Login />}
         />
       </Routes>
     </BrowserRouter>
