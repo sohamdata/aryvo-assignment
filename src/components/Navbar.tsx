@@ -1,12 +1,15 @@
 import { FaCog, FaChevronDown } from 'react-icons/fa';
+import { MdOutlineLogout } from "react-icons/md";
 import { GoInbox } from "react-icons/go";
-
+import { useAuth } from '../context/FirebaseContext';
 
 interface NavbarProps {
     userName: string;
 }
 
 export default function Navbar({ userName }: NavbarProps) {
+    const firebase = useAuth();
+
     const currentDate = new Date();
     const formattedDate = currentDate.toLocaleDateString('en-GB', {
         weekday: 'short',
@@ -18,6 +21,16 @@ export default function Navbar({ userName }: NavbarProps) {
         hour: '2-digit',
         minute: '2-digit',
     });
+
+    const handleLogout = async () => {
+        try {
+            await firebase?.signOutUser();
+            console.log('User signed out');
+        } catch (error) {
+            console.log("cannot sign out");
+            console.log(error);
+        }
+    };
 
     return (
         <div className="px-10 py-2 flex justify-between items-center text-gray-600 bg-gray-200">
@@ -45,13 +58,15 @@ export default function Navbar({ userName }: NavbarProps) {
             <div className="hidden md:flex items-center space-x-5">
                 <span>{formattedDate}</span>
                 <span>{formattedTime}</span>
-                <button className="px-2 flex items-center space-x-2 rounded-full bg-blue-200 border border-blue-700">
+                <span className="px-2 flex items-center space-x-2 rounded-full bg-blue-200 border border-blue-700">
                     <span>Create</span>
                     <FaChevronDown size={15} className='mt-0.5' />
-                </button>
+                </span>
                 <span>{userName}</span>
                 <GoInbox size={18} />
                 <FaCog size={18} />
+                <MdOutlineLogout size={18} className='cursor-pointer' onClick={handleLogout} />
+
             </div>
         </div>
     );

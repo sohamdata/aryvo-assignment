@@ -35,7 +35,7 @@ export default function App() {
         <Route path="/signup" element={<Register />} /> */}
         <Route
           path="/"
-          element={activeUser ? <RegisterDriver /> : <Navigate to="/signup" replace />}
+          element={activeUser ? <RegisterDriver email={activeUser.email || ''} /> : <Navigate to="/signup" replace />}
         />
         <Route
           path="/signup"
