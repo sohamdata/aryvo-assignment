@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import FormProvider from './hook-form/FormProvider';
 import RHFInput from './hook-form/RHFInput';
 import RHFDocUpload from './hook-form/RHFDocUpload';
 import RHFPhone from './hook-form/RHFPhone';
-import { DOCUMENT_TYPES, DRIVER_DETAILS_SCHEMA } from '../config';
+import { DOCUMENT_TYPES, DRIVER_DETAILS_SCHEMA, MOCK_DRIVER_DETAILS } from '../config';
 import { checkAccountExists, validateLicense, validateRegNumber, CAR_DETAILS, LICENSES } from '../mockAPIS';
 import ToggleSwitch from './ToggleSwitch';
 
@@ -24,7 +24,7 @@ export default function DriverSignUp() {
         resolver: yupResolver(DRIVER_DETAILS_SCHEMA),
     });
 
-    const { handleSubmit, formState: { errors } } = methods;
+    const { handleSubmit, formState: { errors }, clearErrors } = methods;
 
     const [selectedFiles, setSelectedFiles] = useState<SelectedFiles>({});
     const [accountExists, setAccountExists] = useState(false);
@@ -58,6 +58,18 @@ export default function DriverSignUp() {
         );
 
         const toggles = { toggle_ppe, toggle_dis, toggle_prem, toggle_HC, toggle_pet, toggle_wide };
+
+        console.log(selectedFiles);
+
+        const hasNullFiles = !DOCUMENT_TYPES.every((doc) => doc.name in selectedFiles);
+        if (hasNullFiles) {
+            alert('Please upload all required documents ');
+            methods.setError('root', {
+                type: 'manual',
+                message: 'Please upload all required documents',
+            });
+            return;
+        }
 
         const formDataWithFiles = { ...formValuesWithoutDocs, ...selectedFiles, ...toggles };
 
@@ -110,10 +122,26 @@ export default function DriverSignUp() {
         }
     }
 
+    const fillMockDetails = () => {
+        console.log("\u{26A1} ez");
+        methods.reset(MOCK_DRIVER_DETAILS);
+    }
+
+    useEffect(() => {
+        if (errors.root) {
+            setTimeout(() => {
+                clearErrors('root');
+            }, 3000);
+        }
+    }, [errors.root]);
+
 
     return (
         <div className="divide-y divide-gray-200">
-            <div className='py-2 text-sm text-blue-700'>Register Driver</div>
+            <div className='py-2 flex justify-between text-sm'>
+                <div className='text-blue-700'>Register Driver</div>
+                <button className='text-amber-600' onClick={fillMockDetails}>Fill with mock details</button>
+            </div>
             <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-12 gap-4 divide-x divide-gray-200">
                 {/* Left col */}
                 <div className="col-span-7 p-4 divide-y divide-gray-200">
@@ -304,6 +332,11 @@ export default function DriverSignUp() {
 
                 {/* Right col */}
                 <div className="col-span-5 p-4">
+                    {errors.root && (
+                        <p className="text-red-500 text-sm mb-4">
+                            {errors.root.message}
+                        </p>
+                    )}
                     <h2 className="text-2xl font-bold mb-4">Documents and expiry dates</h2>
                     <div className="mb-4 flex flex-col gap-2">
                         {DOCUMENT_TYPES.map((doc) => (

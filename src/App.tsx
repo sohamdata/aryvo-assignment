@@ -12,10 +12,10 @@ export default function App() {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setActiveUser(user);
-        console.log("user signed in", auth.currentUser);
+        // console.log("user signed in", auth.currentUser);
       } else {
         setActiveUser(null);
-        console.log("no user signed in");
+        // console.log("no user signed in");
       }
 
       setAuthCheckComplete(true);

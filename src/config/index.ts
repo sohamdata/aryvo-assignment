@@ -74,3 +74,27 @@ export const DRIVER_DETAILS_SCHEMA = Yup.object().shape({
     plateNumber: Yup.string().required('Plate number is required'),
     insuranceCertNumber: Yup.string().required('Insurance certificate number is required'),
 });
+
+export const MOCK_DRIVER_DETAILS = {
+    fullName: 'Soham Datta',
+    contactNumber: '+918860571693',
+    email: 'sohamdatta34@gmail.com',
+    accountingRef: '1234',
+    nominalCode: '5678',
+    callSign: 'soham',
+    commission: '20',
+    weeklyCharge: '50',
+    driverGroup: 'Group A',
+    homeAddress: 'somewhere, in, wales',
+    dvlaLicenseNumber: '1234',
+    driverType: 'Driver',
+    issuedBy: 'DVLA',
+    badgeNumber: '1234',
+    vehicleRegNumber: '1234',
+    model: 'Jaguar',
+    passengerCapacity: '4',
+    rideType: 'Taxi',
+    bodyType: 'Sedan',
+    plateNumber: '1234',
+    insuranceCertNumber: '1234',
+};

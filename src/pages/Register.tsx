@@ -40,7 +40,7 @@ export default function Register() {
         const { email, password } = methods.getValues();
         try {
             await firebase?.signIn({ email, password });
-            console.log('User signed in');
+            // console.log('User signed in');
         } catch (error) {
             console.log("error signing in");
             console.log(error);
