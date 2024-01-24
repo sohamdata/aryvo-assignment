@@ -15,7 +15,11 @@ live demo: https://aryvo-assignment.vercel.app/
 ## How to run the project locally:
 ```bash
 git clone "this repo"
+
 npm install
+
+create a .env file (example.env for reference) and fill in the details (see notes)
+
 npm run dev
 ```
 
@@ -26,6 +30,7 @@ npm run dev
 - For convenience, I have added a `fill with mock details` button to fill the form with mock data.
 - DVLA License Number, Registration have mock APIS to fetch data (see `src/mockAPIS/index.ts`)
 - You can see the payload sent to the server in the console, as well as the file objects separately.
+- during local development, if you do not want to use firebase authentication, you can uncomment the routes in the router file (`src/App.tsx`) and comment out the other ones.
 
 
 Sample payload sent to the server:
