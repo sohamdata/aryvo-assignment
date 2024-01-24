@@ -1,3 +1,5 @@
+import * as Yup from 'yup';
+
 export const DOCUMENT_TYPES = [
     {
         name: 'doc-dvlaLicense',
@@ -48,3 +50,27 @@ export const DOCUMENT_TYPES = [
         label: 'Enchanced DBS',
     },
 ];
+
+export const DRIVER_DETAILS_SCHEMA = Yup.object().shape({
+    fullName: Yup.string().required('Full name is required'),
+    contactNumber: Yup.string().required('Contact number is required'),
+    email: Yup.string().email('Email must be a valid email address').required('Email is required'),
+    accountingRef: Yup.string().required('Accounting ref is required'),
+    nominalCode: Yup.string().required('Nominal code is required'),
+    callSign: Yup.string().required('Call sign is required'),
+    commission: Yup.string().required('Commission is required'),
+    weeklyCharge: Yup.string().required('Weekly charge is required'),
+    driverGroup: Yup.string().required('Driver group is required'),
+    homeAddress: Yup.string().required('Home address is required'),
+    dvlaLicenseNumber: Yup.string().required('DVLA license number is required'),
+    driverType: Yup.string().required('Driver type is required'),
+    issuedBy: Yup.string().required('Issued by is required'),
+    badgeNumber: Yup.string().required('Badge number is required'),
+    vehicleRegNumber: Yup.string().required('Vehicle registration number is required'),
+    model: Yup.string().required('Model is required'),
+    passengerCapacity: Yup.string().required('Passenger capacity is required'),
+    rideType: Yup.string().required('Ride type is required'),
+    bodyType: Yup.string().required('Body type is required'),
+    plateNumber: Yup.string().required('Plate number is required'),
+    insuranceCertNumber: Yup.string().required('Insurance certificate number is required'),
+});

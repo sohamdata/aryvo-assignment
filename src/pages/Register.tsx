@@ -61,21 +61,19 @@ export default function Register() {
         <div className="flex justify-center items-center h-screen">
             <FormProvider methods={methods} onSubmit={handleSubmit(handleSignUp)} className="p-5 bg-slate-300 shadow-md rounded-lg">
                 <div className="mb-4">
-                    <label htmlFor="email">Email</label>
-                    <RHFInput name="email" type="text" placeholder='example@mail.com' />
+                    <RHFInput name="email" type="text" placeholder='example@mail.com' label='Email' />
                     {errors.email && (
                         <p className="text-red-500 text-sm mt-2">
-                            A valid email is required.
+                            {errors.email.message}
                         </p>
                     )}
                 </div>
 
                 <div className="mb-6">
-                    <label htmlFor="password">Password</label>
-                    <RHFInput name="password" type="password" placeholder='muchSecure' />
+                    <RHFInput name="password" type="password" placeholder='muchSecure' label='Password' />
                     {errors.password && (
                         <p className="text-red-500 text-sm mt-2">
-                            password must be at least 6 characters.
+                            {errors.password.message}
                         </p>
                     )}
 
