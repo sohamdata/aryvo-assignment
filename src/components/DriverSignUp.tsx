@@ -100,7 +100,7 @@ export default function DriverSignUp() {
         const response = await validateLicense({ license: dvlaLicenseNumber });
 
         if (response) {
-            setLicenseDetails(response);
+            setLicenseDetails(response as typeof LICENSES[number]);
             console.log('License details', response);
         } else {
             setLicenseDetails(null);
@@ -114,7 +114,7 @@ export default function DriverSignUp() {
         const response = await validateRegNumber({ vehicleRegNumber: vehicleRegNumber });
 
         if (response) {
-            setCarDetails(response);
+            setCarDetails(response as typeof CAR_DETAILS[number]);
             console.log('License details', response);
         } else {
             setCarDetails(null);

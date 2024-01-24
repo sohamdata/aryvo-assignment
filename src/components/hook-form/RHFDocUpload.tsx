@@ -38,8 +38,8 @@ export default function RHFDocUpload({ name, label, onFileChange }: RHFDocUpload
             control={control}
             name={name}
             render={({ field }) => (
-                <div className="mb-4">
-                    <label className="flex justify-between items-center px-4 py-2 bg-white text-gray-800 rounded-sm shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] cursor-pointer hover:bg-gray-100">
+                <div className="mb-4 flex items-center gap-5">
+                    <label className="flex justify-between items-center px-4 py-2 w-1/4 bg-white text-gray-800 rounded-sm shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] cursor-pointer hover:bg-gray-100">
                         {label}
                         <CiFileOn />
                         <input
@@ -52,20 +52,19 @@ export default function RHFDocUpload({ name, label, onFileChange }: RHFDocUpload
                             }}
                             onBlur={field.onBlur}
                         />
-
-                        {/* Expiry date input */}
-                        <input
-                            type="text"
-                            className="w-1/3 px-2 py-1 border border-gray-400 rounded-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                            placeholder="Expiry date"
-                            value={expiryDate || ''}
-                            onChange={(e) => {
-                                const newExpiryDate = e.target.value;
-                                handleFileChange(file, newExpiryDate);
-                            }}
-                        />
                     </label>
-                    {file && (
+                    {/* Expiry date input */}
+                    <input
+                        type="date"
+                        className="w-1/3 px-2 py-1 border border-gray-400 rounded-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="Expiry date"
+                        value={expiryDate || ''}
+                        onChange={(e) => {
+                            const newExpiryDate = e.target.value;
+                            handleFileChange(file, newExpiryDate);
+                        }}
+                    />
+                    {file ? (
                         <div className="mt-2">
                             <span className="cursor-pointer text-blue-500 underline" onClick={onView}>
                                 View
@@ -80,6 +79,8 @@ export default function RHFDocUpload({ name, label, onFileChange }: RHFDocUpload
                                 Remove
                             </span>
                         </div>
+                    ) : (
+                        <span className="text-red-500">Required</span>
                     )}
                 </div>
             )}
