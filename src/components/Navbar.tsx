@@ -2,6 +2,7 @@ import { FaCog, FaChevronDown } from 'react-icons/fa';
 import { MdOutlineLogout } from "react-icons/md";
 import { GoInbox } from "react-icons/go";
 import { useAuth } from '../context/FirebaseContext';
+import CustomTooltip from './CustomToolTip';
 
 interface NavbarProps {
     userName: string;
@@ -63,9 +64,25 @@ export default function Navbar({ userName }: NavbarProps) {
                     <FaChevronDown size={15} className='mt-0.5' />
                 </span>
                 <span>{userName}</span>
-                <GoInbox size={18} />
-                <FaCog size={18} />
-                <MdOutlineLogout size={18} className='cursor-pointer' onClick={handleLogout} />
+
+                <CustomTooltip
+                    id="tooltip-inbox"
+                    content="Inbox"
+                    child={<GoInbox size={18} />}
+                />
+                <CustomTooltip
+                    id="tooltip-settings"
+                    content="Settings"
+                    child={<FaCog size={18} />}
+                />
+
+                <CustomTooltip
+                    id="tooltip-logout"
+                    content="Logout"
+                    child={
+                        <MdOutlineLogout size={18} className='cursor-pointer hover:text-red-500' onClick={handleLogout} />
+                    }
+                />
 
             </div>
         </div>
