@@ -1,16 +1,14 @@
-import DriverSignUp from "./components/DriverSignUp";
-import Navbar from "./components/Navbar";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Register from "./pages/Register";
+import RegisterDriver from "./pages/RegisterDriver";
 
-function App() {
-
+export default function App() {
   return (
-    <>
-      <Navbar userName="Operator Name" />
-      <div className="px-5">
-        <DriverSignUp />
-      </div>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<RegisterDriver />}></Route>
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;

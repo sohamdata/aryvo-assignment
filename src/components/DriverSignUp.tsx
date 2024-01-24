@@ -113,17 +113,17 @@ export default function DriverSignUp() {
                         </div>
                     </div>
 
-                    <div className='my-4 flex flex-col'>
+                    <div className='my-4 flex justify-between'>
+                        {accountExists && (
+                            <p className='mt-2 text-xs text-blue-700 font-semibold w-2/3'>An account already exists with these contact details, you need to merge the accounts, or use different details</p>
+                        )}
                         <button
                             type="button"
-                            className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 w-1/6 self-end'
+                            className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 text-xs'
                             onClick={onContinue}
                         >
                             Check
                         </button>
-                        {accountExists && (
-                            <p className='text-red-500 text-xs mt-2'>An account already exists with these contact details, you need to merge the accounts, or use different details</p>
-                        )}
                     </div>
 
                     {/* Section 1.2 */}
