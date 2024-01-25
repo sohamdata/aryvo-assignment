@@ -5,6 +5,7 @@ import { useAuth } from '../context/FirebaseContext';
 import CustomTooltip from './ui/CustomToolTip';
 import { auth, onAuthStateChanged, User } from '../config/firebase';
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
 interface NavbarProps {
     userName: string;
@@ -48,6 +49,7 @@ export default function Navbar({ userName }: NavbarProps) {
         try {
             await firebase?.signOutUser();
             console.log('User signed out');
+            toast.success("Signed out successfully");
         } catch (error) {
             console.log("cannot sign out");
             console.log(error);

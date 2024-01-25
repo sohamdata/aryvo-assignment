@@ -10,7 +10,7 @@ live demo: https://aryvo-assignment.vercel.app/
 - yup (for validation)
 - firebase (for authentication)
 - Tailwind CSS
-- Vercel (for deployment)
+- Deployed on Vercel
 
 ## How to run the project locally:
 ```bash
@@ -24,11 +24,11 @@ npm run dev
 ```
 
 ## Notes:
+- `Existing User, DVLA License Number, Registration` have `mock APIS` to simulate API response (see `src/mockAPIS/index.ts`).
 - I have made a guest user account for the purpose of this assignment. You can login with the following credentials, or you can create your own account.
     - email: demo@aryvo.com
     - password: demo123
 - For convenience, I have added a `fill with mock details` button to fill the form with mock data.
-- Existing User, DVLA License Number, Registration have `mock APIS` to simulate API response (see `src/mockAPIS/index.ts`).
 - You can see the payload sent to the server in the console, as well as the file objects (yes, file handling works!) separately.
 - File objects (see console) can be further processed to be sent to the server.
 - during local development, if you do not want to use firebase authentication, you can uncomment the routes in the router file (`src/App.tsx`) and comment out the other ones.

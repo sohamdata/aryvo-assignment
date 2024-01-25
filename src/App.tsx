@@ -36,7 +36,7 @@ export default function App() {
     <>
       <Toaster toastOptions={{
         duration: 3000,
-        position: "top-right",
+        position: "top-center",
       }}>
         {(t) => (
           <ToastBar toast={t}>

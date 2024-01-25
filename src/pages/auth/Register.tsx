@@ -8,6 +8,7 @@ import RHFInput from '../../components/hook-form/RHFInput';
 import Navbar from '../../components/Navbar';
 import toast from 'react-hot-toast';
 import Button from '../../components/ui/Button';
+import MoreInfo from '../../components/MoreInfo';
 
 
 export default function Register() {
@@ -46,9 +47,9 @@ export default function Register() {
     };
 
     return (
-        <>
+        <div className="flex flex-col h-screen">
             <Navbar userName="Operator Name" />
-            <div className="flex justify-center items-center h-screen bg-gray-200">
+            <div className="flex flex-col justify-center items-center h-screen bg-gray-300 gap-10">
                 <FormProvider methods={methods} onSubmit={handleSubmit(handleSignUp)} className="p-8 w-96 bg-white shadow-md rounded-lg">
                     <div className="mb-6 text-center items-center flex flex-col">
                         <img src="/aryvologo.png" alt="Company Logo" className="mb-5 w-32" />
@@ -88,7 +89,8 @@ export default function Register() {
                         </div>
                     </div>
                 </FormProvider>
+                <MoreInfo />
             </div>
-        </>
+        </div>
     );
 }
