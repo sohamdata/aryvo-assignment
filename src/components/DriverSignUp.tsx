@@ -228,10 +228,23 @@ export default function DriverSignUp() {
                     {/* Section 3 */}
                     <div className="py-4">
                         <h3 className="text-lg font-semibold mb-2">Taxi or PH badge Information</h3>
-                        <div className="mb-4 flex justify-start gap-4">
-                            <RHFInput name="driverType" type="text" label='Driver Type' />
-                            <RHFInput name="issuedBy" type="text" label='Issued by' />
-                            <RHFInput name="badgeNumber" type="text" label='Badge number' />
+                        <div className="mb-4 flex flex-col justify-start gap-1">
+                            <div className="flex justify-start gap-4">
+                                <RHFInput name="driverType" type="text" label='Driver Type' />
+                                <RHFInput name="issuedBy" type="text" label='Issued by' />
+                                <RHFInput name="badgeNumber" type="text" label='Badge number' />
+                            </div>
+                            <div className="flex justify-start gap-4">
+                                <button className="px-4 py-2 border border-gray-300 rounded-md shadow-md bg-white hover:bg-gray-200 transition duration-300">
+                                    Safeguarding Certificate
+                                </button>
+                                <button className="px-4 py-2 border border-gray-300 rounded-md shadow-md bg-white hover:bg-gray-200 transition duration-300">
+                                    B-Tech
+                                </button>
+                                <button className="px-4 py-2 border border-gray-300 rounded-md shadow-md bg-white hover:bg-gray-200 transition duration-300">
+                                    Wheelchair Certificate
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -332,7 +345,7 @@ export default function DriverSignUp() {
                     </div>
                     <Button label='Submit' type="submit" />
                 </div>
-            </FormProvider>
-        </div>
+            </FormProvider >
+        </div >
     );
 };

@@ -65,7 +65,10 @@ export default function RHFDocUpload({ name, label, onFileChange }: RHFDocUpload
                         }}
                     />
                     {file ? (
-                        <div className="mt-2">
+                        <div className="mt-2 flex gap-4">
+                            <span className="text-black">
+                                57 Days
+                            </span>
                             <span className="cursor-pointer text-blue-500 underline" onClick={onView}>
                                 View
                             </span>

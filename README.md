@@ -60,51 +60,51 @@ Sample payload sent to the server:
     "plateNumber": "1234",
     "insuranceCertNumber": "1234",
     "doc-dvlaLicense": {
-        "file": {"--fileObj_here"},
+        "file": {"<fileObj_here>"},
         "expiryDate": "2024-01-05"
     },
     "doc-complianceCert": {
-        "file": {"--fileObj_here"},
+        "file": {"<fileObj_here>"},
         "expiryDate": "2024-01-19"
     },
     "doc-insuranceCert": {
-        "file": {"--fileObj_here"},
+        "file": {"<fileObj_here>"},
         "expiryDate": "2024-01-04"
     },
     "doc-proofOfAddress": {
-        "file": {"--fileObj_here"},
+        "file": {"<fileObj_here>"},
         "expiryDate": "2024-01-25"
     },
     "doc-vehiclePlate": {
-        "file": {"--fileObj_here"},
+        "file": {"<fileObj_here>"},
         "expiryDate": "2024-01-12"
     },
     "doc-hackneyBadge": {
-        "file": {"--fileObj_here"},
+        "file": {"<fileObj_here>"},
         "expiryDate": "2024-01-05"
     },
     "doc-phBadge": {
-        "file": {"--fileObj_here"},
+        "file": {"<fileObj_here>"},
         "expiryDate": "2024-01-18"
     },
     "doc-operatorLicense": {
-        "file": {"--fileObj_here"},
+        "file": {"<fileObj_here>"},
         "expiryDate": "2024-02-02"
     },
     "doc-publicLiability": {
-        "file": {"--fileObj_here"},
+        "file": {"<fileObj_here>"},
         "expiryDate": "2024-01-25"
     },
     "doc-employersLiability": {
-        "file": {"--fileObj_here"},
+        "file": {"<fileObj_here>"},
         "expiryDate": "2024-01-03"
     },
     "doc-formB": {
-        "file": {"--fileObj_here"},
+        "file": {"<fileObj_here>"},
         "expiryDate": "2024-02-10"
     },
     "doc-enchancedDBS": {
-        "file": {"--fileObj_here"},
+        "file": {"<fileObj_here>"},
         "expiryDate": "2024-01-19"
     },
     "toggle_ppe": false,
