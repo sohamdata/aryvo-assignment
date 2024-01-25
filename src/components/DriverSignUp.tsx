@@ -184,7 +184,13 @@ export default function DriverSignUp() {
                             {accountExists && (
                                 <p className='mt-2 text-xs text-blue-700 font-semibold w-2/3'>An account already exists with these contact details, you need to merge the accounts, or use different details</p>
                             )}
-                            <Button label='Check' type="button" onClick={onContinue} />
+                            <button
+                                className={`px-4 py-2 text-white rounded text-sm bg-blue-500 hover:bg-blue-700 transition duration-300`}
+                                onClick={onContinue}
+                                type="button"
+                            >
+                                Check
+                            </button>
                         </div>
                     </div>
                     {/* Section 1.2 */}
@@ -210,7 +216,13 @@ export default function DriverSignUp() {
                         <div className="flex justify-start gap-4">
                             <div className="flex flex-col mb-2">
                                 <RHFInput name="dvlaLicenseNumber" type="text" label='DVLA License Number' />
-                                <Button label='Validate License' type="button" onClick={onValidateLicense} />
+                                <button
+                                    className={`px-4 py-2 text-white rounded text-sm bg-blue-500 hover:bg-blue-700 transition duration-300`}
+                                    onClick={onValidateLicense}
+                                    type="button"
+                                >
+                                    Validate License
+                                </button>
                             </div>
                             {licenseDetails && (
                                 <>
@@ -254,7 +266,13 @@ export default function DriverSignUp() {
                         <div className="flex justify-start gap-4">
                             <div className="flex flex-col mb-2">
                                 <RHFInput name="vehicleRegNumber" type="text" className='w-2/3' label='Registration' />
-                                <Button label='Validate Car' type="button" onClick={onCheckCarReg} />
+                                <button
+                                    className={`px-4 py-2 text-white rounded text-sm bg-blue-500 hover:bg-blue-700 transition duration-300`}
+                                    onClick={onCheckCarReg}
+                                    type="button"
+                                >
+                                    Validate Car
+                                </button>
                             </div>
                             {carDetails && (
                                 <>
