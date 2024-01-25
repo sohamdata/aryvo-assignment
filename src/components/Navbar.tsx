@@ -57,15 +57,15 @@ export default function Navbar({ userName }: NavbarProps) {
     return (
         <div className="px-10 py-2 flex justify-between items-center text-gray-600 bg-gray-200">
             <div className="flex items-center space-x-4">
-                <img src="/aryvologo.png" alt="Company Logo" className="mt-1 w-14" />
+                <img src="/aryvologo.png" alt="Company Logo" className="mt-1 w-14 cursor-pointer" />
 
                 <div className="hidden md:flex items-center space-x-3">
-                    <span>Home</span>
-                    <span>Trips</span>
-                    <span>Drivers</span>
-                    <span>Customers</span>
-                    <span>Finance</span>
-                    <span>Reports</span>
+                    <span className="cursor-pointer">Home</span>
+                    <span className="cursor-pointer">Trips</span>
+                    <span className="cursor-pointer">Drivers</span>
+                    <span className="cursor-pointer">Customers</span>
+                    <span className="cursor-pointer">Finance</span>
+                    <span className="cursor-pointer">Reports</span>
                 </div>
             </div>
 
@@ -89,12 +89,12 @@ export default function Navbar({ userName }: NavbarProps) {
                 <CustomTooltip
                     id="tooltip-inbox"
                     content="Inbox"
-                    child={<GoInbox size={18} />}
+                    child={<GoInbox size={18} className='cursor-pointer' />}
                 />
                 <CustomTooltip
                     id="tooltip-settings"
                     content="Settings"
-                    child={<FaCog size={18} />}
+                    child={<FaCog size={18} className='cursor-pointer hover:rotate-90 transform transition duration-300' />}
                 />
 
                 {activeUser && authCheckComplete &&
