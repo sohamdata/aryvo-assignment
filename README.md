@@ -4,12 +4,16 @@ live demo: https://aryvo-assignment.vercel.app/
 
 ## Technologies used:
 
-- React.js (vite as the build tool)
-- TypeScript
-- react-hook-form
-- yup (for validation)
+- Core:
+    - React.js (vite as the build tool)
+    - TypeScript
+    - react-hook-form
+    - yup (for validation)
 - firebase (for authentication)
-- Tailwind CSS
+- ui/ux:
+    - Tailwind CSS
+    - react-hot-toast
+    - tooltip
 - Deployed on Vercel
 
 ## How to run the project locally:
