@@ -39,7 +39,7 @@ export default function RHFDocUpload({ name, label, onFileChange }: RHFDocUpload
             name={name}
             render={({ field }) => (
                 <div className="mb-4 flex items-center gap-5">
-                    <label className="flex justify-between items-center px-4 py-2 w-1/4 bg-white text-gray-800 rounded-sm shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] cursor-pointer hover:bg-gray-100">
+                    <label className="flex justify-between items-center px-4 py-2 w-1/4 text-sm bg-white text-gray-800 rounded-sm shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] cursor-pointer hover:bg-gray-100">
                         {label}
                         <CiFileOn />
                         <input

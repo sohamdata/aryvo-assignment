@@ -143,13 +143,13 @@ export default function DriverSignUp() {
                 <div className='text-blue-700'>Register Driver</div>
                 <button className='text-amber-600 font-bold' onClick={fillMockDetails}>Fill with mock details</button>
             </div>
-            <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-12 gap-4 divide-x divide-gray-200">
+            <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)} className="sm:flex sm:flex-col md:grid md:grid-cols-12 gap-4 divide-x divide-gray-200">
                 {/* Left col */}
                 <div className="col-span-7 p-4 divide-y divide-gray-200">
                     {/* Section 1 */}
                     <div className="mb-4 flex flex-col">
                         <h2 className="text-2xl font-bold mb-4">Signup a driver</h2>
-                        <div className="mb-4 flex justify-between">
+                        <div className="mb-4 flex flex-col md:flex-row md:justify-between">
                             <div className="flex flex-col">
                                 <RHFInput name="fullName" type="text" label='Enter Full Name' />
                                 {errors.fullName && (
@@ -189,7 +189,7 @@ export default function DriverSignUp() {
                     </div>
                     {/* Section 1.2 */}
                     <div className="py-4">
-                        <div className="flex justify-start gap-3">
+                        <div className="flex flex-col md:flex-row justify-start gap-3">
                             <RHFInput name="accountingRef" type="text" className='w-4/5' label='Accounting Ref' />
                             <RHFInput name="nominalCode" type="text" className='w-4/5' label='Nominal Code' />
                             <RHFInput name="callSign" type="text" className='w-4/5' label='Call Sign' />
@@ -229,19 +229,19 @@ export default function DriverSignUp() {
                     <div className="py-4">
                         <h3 className="text-lg font-semibold mb-2">Taxi or PH badge Information</h3>
                         <div className="mb-4 flex flex-col justify-start gap-1">
-                            <div className="flex justify-start gap-4">
+                            <div className="flex flex-col md:flex-row justify-start gap-4">
                                 <RHFInput name="driverType" type="text" label='Driver Type' />
                                 <RHFInput name="issuedBy" type="text" label='Issued by' />
                                 <RHFInput name="badgeNumber" type="text" label='Badge number' />
                             </div>
                             <div className="flex justify-start gap-4">
-                                <button className="px-4 py-2 border border-gray-300 rounded-md shadow-md bg-white hover:bg-gray-200 transition duration-300">
+                                <button className="px-4 py-2 border border-gray-300 text-sm rounded-md shadow-md bg-white hover:bg-gray-200 transition duration-300">
                                     Safeguarding Certificate
                                 </button>
-                                <button className="px-4 py-2 border border-gray-300 rounded-md shadow-md bg-white hover:bg-gray-200 transition duration-300">
+                                <button className="px-4 py-2 border border-gray-300 text-sm rounded-md shadow-md bg-white hover:bg-gray-200 transition duration-300">
                                     B-Tech
                                 </button>
-                                <button className="px-4 py-2 border border-gray-300 rounded-md shadow-md bg-white hover:bg-gray-200 transition duration-300">
+                                <button className="px-4 py-2 border border-gray-300 text-sm rounded-md shadow-md bg-white hover:bg-gray-200 transition duration-300">
                                     Wheelchair Certificate
                                 </button>
                             </div>
@@ -269,14 +269,14 @@ export default function DriverSignUp() {
 
                         </div>
 
-                        <div className="my-4 flex justify-start">
+                        <div className="my-4 flex flex-col md:flex-row justify-start">
                             <RHFInput name="model" type="text" className='w-2/3' label='Model' />
                             <RHFInput name="passengerCapacity" type="text" className='w-2/3' label='Passenger Capacity' />
                             <RHFInput name="rideType" type="text" className='w-2/3' label='Ride Type' />
                             <RHFInput name="bodyType" type="text" className='w-2/3' label='Body Type' />
                         </div>
 
-                        <div className="mb-4 flex justify-start gap-5">
+                        <div className="mb-4 flex flex-col md:flex-row justify-start gap-5">
                             <RHFInput name="plateNumber" type="text" label='Plate Number' />
                             <RHFInput name="issuedBy" type="text" label='Issued by' />
                         </div>

@@ -3,12 +3,33 @@ import { MdOutlineLogout } from "react-icons/md";
 import { GoInbox } from "react-icons/go";
 import { useAuth } from '../context/FirebaseContext';
 import CustomTooltip from './ui/CustomToolTip';
+import { auth, onAuthStateChanged, User } from '../config/firebase';
+import { useEffect, useState } from 'react';
 
 interface NavbarProps {
     userName: string;
 }
 
 export default function Navbar({ userName }: NavbarProps) {
+    const [activeUser, setActiveUser] = useState<User | null>(null);
+    const [authCheckComplete, setAuthCheckComplete] = useState(false);
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setActiveUser(user);
+                // console.log("user signed in", auth.currentUser);
+            } else {
+                setActiveUser(null);
+                // console.log("no user signed in");
+            }
+
+            setAuthCheckComplete(true);
+        });
+
+        return () => unsubscribe();
+    }, []);
+
     const firebase = useAuth();
 
     const currentDate = new Date();
@@ -76,13 +97,14 @@ export default function Navbar({ userName }: NavbarProps) {
                     child={<FaCog size={18} />}
                 />
 
-                <CustomTooltip
-                    id="tooltip-logout"
-                    content="Logout"
-                    child={
-                        <MdOutlineLogout size={18} className='cursor-pointer hover:text-red-500' onClick={handleLogout} />
-                    }
-                />
+                {activeUser && authCheckComplete &&
+                    <CustomTooltip
+                        id="tooltip-logout"
+                        content="Logout"
+                        child={
+                            <MdOutlineLogout size={18} className='cursor-pointer hover:text-red-500' onClick={handleLogout} />
+                        }
+                    />}
 
             </div>
         </div>

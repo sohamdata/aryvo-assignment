@@ -4,6 +4,7 @@ import Register from "./pages/auth/Register";
 import Login from "./pages/auth/Login";
 import RegisterDriver from "./pages/RegisterDriver";
 import { auth, onAuthStateChanged, User } from './config/firebase';
+import { toast, Toaster, ToastBar } from 'react-hot-toast';
 
 export default function App() {
   const [activeUser, setActiveUser] = useState<User | null>(null);
@@ -32,23 +33,45 @@ export default function App() {
   }
 
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* <Route path="/" element={<RegisterDriver email={activeUser.email || ''} />}></Route>
+    <>
+      <Toaster toastOptions={{
+        duration: 3000,
+        position: "top-right",
+      }}>
+        {(t) => (
+          <ToastBar toast={t}>
+            {({ icon, message }) => (
+              <>
+                {icon}
+                {message}
+                {t.type !== 'loading' && (
+                  <button onClick={() => toast.dismiss(t.id)} >
+                    ✖️
+                  </button>
+                )}
+              </>
+            )}
+          </ToastBar>
+        )}
+      </Toaster>
+      <BrowserRouter>
+        <Routes>
+          {/* <Route path="/" element={<RegisterDriver email={activeUser.email || ''} />}></Route>
         <Route path="/signup" element={<Register />} /> */}
-        <Route
-          path="/"
-          element={activeUser ? <RegisterDriver email={activeUser.email || ''} /> : <Navigate to="/signin" replace />}
-        />
-        <Route
-          path="/signup"
-          element={activeUser ? <Navigate to="/" replace /> : <Register />}
-        />
-        <Route
-          path="/signin"
-          element={activeUser ? <Navigate to="/" replace /> : <Login />}
-        />
-      </Routes>
-    </BrowserRouter>
+          <Route
+            path="/"
+            element={activeUser ? <RegisterDriver email={activeUser.email || ''} /> : <Navigate to="/signin" replace />}
+          />
+          <Route
+            path="/signup"
+            element={activeUser ? <Navigate to="/" replace /> : <Register />}
+          />
+          <Route
+            path="/signin"
+            element={activeUser ? <Navigate to="/" replace /> : <Login />}
+          />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
