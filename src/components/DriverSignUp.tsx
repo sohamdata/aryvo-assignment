@@ -9,6 +9,7 @@ import { DOCUMENT_TYPES, DRIVER_DETAILS_SCHEMA, MOCK_DRIVER_DETAILS } from '../c
 import { checkAccountExists, validateLicense, validateRegNumber, CAR_DETAILS, LICENSES } from '../mockAPIS';
 import ToggleSwitch from './ui/ToggleSwitch';
 import Button from './ui/Button';
+import toast from 'react-hot-toast';
 
 
 type SelectedFiles = {
@@ -79,11 +80,12 @@ export default function DriverSignUp() {
 
     const onContinue = async () => {
         const { email } = methods.getValues();
-
+        const toastId = toast.loading('Checking account...');
         const accountExists = await checkAccountExists({ email });
         if (accountExists) {
             console.log('Account exists');
             setAccountExists(true);
+            toast.error("Account exists");
             // methods.setError('email', {
             //     type: 'manual',
             //     message: 'An account with this email already exists',
@@ -93,34 +95,44 @@ export default function DriverSignUp() {
             console.log('No account exists');
             methods.clearErrors('email');
         }
+        toast.dismiss(toastId);
     }
 
     const onValidateLicense = async () => {
         const { dvlaLicenseNumber } = methods.getValues();
+
+        const toastId = toast.loading('Validating license...');
 
         const response = await validateLicense({ license: dvlaLicenseNumber });
 
         if (response) {
             setLicenseDetails(response as typeof LICENSES[number]);
             console.log('License details', response);
+            toast.success("License validated successfully");
         } else {
             setLicenseDetails(null);
             console.log('License not found');
+            toast.error("License not found");
         }
+        toast.dismiss(toastId);
     }
 
     const onCheckCarReg = async () => {
         const { vehicleRegNumber } = methods.getValues();
 
+        const toastId = toast.loading('Validating car...');
         const response = await validateRegNumber({ vehicleRegNumber: vehicleRegNumber });
 
         if (response) {
             setCarDetails(response as typeof CAR_DETAILS[number]);
             console.log('License details', response);
+            toast.success("Car validated successfully");
         } else {
             setCarDetails(null);
             console.log('License not found');
+            toast.error("Car not found");
         }
+        toast.dismiss(toastId);
     }
 
     const fillMockDetails = () => {
@@ -247,13 +259,13 @@ export default function DriverSignUp() {
                                 <RHFInput name="badgeNumber" type="text" label='Badge number' />
                             </div>
                             <div className="flex justify-start gap-4">
-                                <button className="px-4 py-2 border border-gray-300 text-sm rounded-md shadow-md bg-white hover:bg-gray-200 transition duration-300">
+                                <button type="button" className="px-4 py-2 border border-gray-300 text-sm rounded-md shadow-md bg-white hover:bg-gray-200 transition duration-300">
                                     Safeguarding Certificate
                                 </button>
-                                <button className="px-4 py-2 border border-gray-300 text-sm rounded-md shadow-md bg-white hover:bg-gray-200 transition duration-300">
+                                <button type="button" className="px-4 py-2 border border-gray-300 text-sm rounded-md shadow-md bg-white hover:bg-gray-200 transition duration-300">
                                     B-Tech
                                 </button>
-                                <button className="px-4 py-2 border border-gray-300 text-sm rounded-md shadow-md bg-white hover:bg-gray-200 transition duration-300">
+                                <button type="button" className="px-4 py-2 border border-gray-300 text-sm rounded-md shadow-md bg-white hover:bg-gray-200 transition duration-300">
                                     Wheelchair Certificate
                                 </button>
                             </div>
