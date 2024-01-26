@@ -120,4 +120,4 @@ Sample payload sent to the server:
 }
 ```
 
-![image](https://github.com/sohamdata/aryvo-assignment/assets/78294692/9d10201d-d684-4a09-91bb-59093aa02c91)
+https://github.com/sohamdata/aryvo-assignment/assets/78294692/65179a9a-9fd2-4391-8f21-1d2a17f43b0a
