@@ -120,4 +120,7 @@ Sample payload sent to the server:
 }
 ```
 
-https://github.com/sohamdata/aryvo-assignment/assets/78294692/65179a9a-9fd2-4391-8f21-1d2a17f43b0a
+Desktop and Mobile demos:
+
+https://github.com/sohamdata/aryvo-assignment/assets/78294692/fc1f19f2-f261-4546-a764-cfec2b1a746a
+
