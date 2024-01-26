@@ -71,7 +71,7 @@ export default function Navbar({ userName }: NavbarProps) {
                 </div>
             </div>
 
-            <div className="md:flex-1 flex items-center justify-center">
+            <div className="md:flex-1 flex items-center justify-end md:justify-center">
                 <input
                     type="text"
                     placeholder="Search"
@@ -79,25 +79,28 @@ export default function Navbar({ userName }: NavbarProps) {
                 />
             </div>
 
-            <div className="hidden md:flex items-center space-x-5">
-                <span>{formattedDate}</span>
-                <span>{formattedTime}</span>
-                <span className="px-2 flex items-center space-x-2 rounded-full bg-blue-200 border border-blue-700">
-                    <span>Create</span>
-                    <FaChevronDown size={15} className='mt-0.5' />
-                </span>
-                <span>{userName}</span>
+            <div className="flex items-center space-x-5">
+                <div className="hidden md:flex items-center space-x-5">
 
-                <CustomTooltip
-                    id="tooltip-inbox"
-                    content="Inbox"
-                    child={<GoInbox size={18} className='cursor-pointer' />}
-                />
-                <CustomTooltip
-                    id="tooltip-settings"
-                    content="Settings"
-                    child={<FaCog size={18} className='cursor-pointer hover:rotate-90 transform transition duration-300' />}
-                />
+                    <span>{formattedDate}</span>
+                    <span>{formattedTime}</span>
+                    <span className="px-2 flex items-center space-x-2 rounded-full bg-blue-200 border border-blue-700">
+                        <span>Create</span>
+                        <FaChevronDown size={15} className='mt-0.5' />
+                    </span>
+                    <span>{userName}</span>
+
+                    <CustomTooltip
+                        id="tooltip-inbox"
+                        content="Inbox"
+                        child={<GoInbox size={18} className='cursor-pointer' />}
+                    />
+                    <CustomTooltip
+                        id="tooltip-settings"
+                        content="Settings"
+                        child={<FaCog size={18} className='cursor-pointer hover:rotate-90 transform transition duration-300' />}
+                    />
+                </div>
 
                 {activeUser && authCheckComplete &&
                     <CustomTooltip
@@ -106,8 +109,8 @@ export default function Navbar({ userName }: NavbarProps) {
                         child={
                             <MdOutlineLogout size={18} className='cursor-pointer hover:text-red-500' onClick={handleLogout} />
                         }
-                    />}
-
+                    />
+                }
             </div>
         </div>
     );

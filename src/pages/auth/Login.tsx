@@ -27,7 +27,7 @@ export default function Login() {
 
     const { handleSubmit, formState: { errors } } = methods;
 
-    const handleSignUp = async () => {
+    const handleSignUp = () => {
         navigate('/signup');
     };
 
@@ -48,10 +48,10 @@ export default function Login() {
     };
 
     return (
-        <div className="flex flex-col h-screen">
+        <div className="flex flex-col h-screen bg-gray-300 gap-2">
             <Navbar userName="Operator Name" />
-            <div className="flex flex-col justify-center items-center h-screen bg-gray-300 gap-10">
-                <FormProvider methods={methods} onSubmit={handleSubmit(handleSignIn)} className="p-8 w-96 bg-white shadow-md rounded-lg">
+            <div className="flex flex-col justify-center items-center h-screen gap-10">
+                <FormProvider methods={methods} onSubmit={handleSubmit(handleSignIn)} className="p-8 w-full max-w-sm bg-white shadow-md rounded-lg">
                     <div className="mb-6 text-center items-center flex flex-col">
                         <img src="/aryvologo.png" alt="Company Logo" className="mb-5 w-32" />
                         <h1 className="text-2xl font-bold">Sign In</h1>
@@ -79,7 +79,7 @@ export default function Login() {
                         <Button label='Sign In' type="submit" />
 
                         <div className="flex items-center justify-center text-sm">
-                            <span className="text-gray-600">Don't have an account?</span>
+                            <span className="text-gray-600">Don&apos;t have an account?</span>
                             <span
                                 className="ml-2 cursor-pointer text-blue-500 underline"
                                 onClick={handleSignUp}

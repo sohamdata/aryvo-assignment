@@ -39,7 +39,7 @@ export default function RHFDocUpload({ name, label, onFileChange }: RHFDocUpload
             name={name}
             render={({ field }) => (
                 <div className="mb-4 flex items-center gap-5">
-                    <label className="flex justify-between items-center px-4 py-2 w-1/4 text-sm bg-white text-gray-800 rounded-sm shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] cursor-pointer hover:bg-gray-100">
+                    <label className="flex justify-between items-center px-4 py-2 w-1/4 text-xs bg-white text-gray-800 rounded-sm shadow-[rgba(17,_17,_26,_0.2)_0px_0px_16px] cursor-pointer hover:bg-gray-100">
                         {label}
                         <CiFileOn />
                         <input
@@ -56,7 +56,7 @@ export default function RHFDocUpload({ name, label, onFileChange }: RHFDocUpload
                     {/* Expiry date input */}
                     <input
                         type="date"
-                        className="w-1/3 px-2 py-1 border border-gray-400 rounded-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-1/3 px-2 py-1 border border-gray-400 rounded-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-xs"
                         placeholder="Expiry date"
                         value={expiryDate || ''}
                         onChange={(e) => {
@@ -65,22 +65,24 @@ export default function RHFDocUpload({ name, label, onFileChange }: RHFDocUpload
                         }}
                     />
                     {file ? (
-                        <div className="mt-2 flex gap-4">
+                        <div className="mt-2 flex gap-4 text-sm">
                             <span className="text-black">
                                 57 Days
                             </span>
-                            <span className="cursor-pointer text-blue-500 underline" onClick={onView}>
-                                View
-                            </span>
-                            <span
-                                className="ml-2 cursor-pointer text-red-500 underline"
-                                onClick={(_) => {
-                                    field.onChange(null);
-                                    onRemoveFile();
-                                }}
-                            >
-                                Remove
-                            </span>
+                            <div className='flex flex-col md:flex-row items-end'>
+                                <span className="cursor-pointer text-blue-500 underline" onClick={onView}>
+                                    View
+                                </span>
+                                <span
+                                    className="ml-2 cursor-pointer text-red-500 underline"
+                                    onClick={(_) => {
+                                        field.onChange(null);
+                                        onRemoveFile();
+                                    }}
+                                >
+                                    Remove
+                                </span>
+                            </div>
                         </div>
                     ) : (
                         <span className="text-red-500">Required</span>

@@ -10,6 +10,7 @@ import { checkAccountExists, validateLicense, validateRegNumber, CAR_DETAILS, LI
 import ToggleSwitch from './ui/ToggleSwitch';
 import Button from './ui/Button';
 import toast from 'react-hot-toast';
+import CustomTooltip from './ui/CustomToolTip';
 
 
 type SelectedFiles = {
@@ -155,13 +156,13 @@ export default function DriverSignUp() {
                 <div className='text-blue-700'>Register Driver</div>
                 <button className='text-amber-600 font-bold' onClick={fillMockDetails}>Fill with mock details</button>
             </div>
-            <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)} className="sm:flex sm:flex-col md:grid md:grid-cols-12 gap-4 divide-x divide-gray-200">
+            <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)} className="sm:flex sm:flex-col md:grid md:grid-cols-12 gap-4 md:divide-x md:divide-gray-200">
                 {/* Left col */}
-                <div className="col-span-7 p-4 divide-y divide-gray-200">
+                <div className="col-span-7 px-4 py-1 divide-y divide-gray-200">
                     {/* Section 1 */}
                     <div className="mb-4 flex flex-col">
-                        <h2 className="text-2xl font-bold mb-4">Signup a driver</h2>
-                        <div className="mb-4 flex flex-col md:flex-row md:justify-between">
+                        <h3 className="text-2xl mb-4">Signup a driver</h3>
+                        <div className="mb-4 flex flex-col md:flex-row gap-2">
                             <div className="flex flex-col">
                                 <RHFInput name="fullName" type="text" label='Enter Full Name' />
                                 {errors.fullName && (
@@ -192,7 +193,7 @@ export default function DriverSignUp() {
                             </div>
                         </div>
 
-                        <div className='my-4 flex justify-between'>
+                        <div className='mb-4 flex justify-between'>
                             {accountExists && (
                                 <p className='mt-2 text-xs text-blue-700 font-semibold w-2/3'>An account already exists with these contact details, you need to merge the accounts, or use different details</p>
                             )}
@@ -207,13 +208,31 @@ export default function DriverSignUp() {
                     </div>
                     {/* Section 1.2 */}
                     <div className="py-4">
-                        <div className="flex flex-col md:flex-row justify-start gap-3">
-                            <RHFInput name="accountingRef" type="text" className='w-4/5' label='Accounting Ref' />
-                            <RHFInput name="nominalCode" type="text" className='w-4/5' label='Nominal Code' />
-                            <RHFInput name="callSign" type="text" className='w-4/5' label='Call Sign' />
-                            <RHFInput name="commission" type="text" className='w-4/5' label='Commission %' />
-                            <RHFInput name="weeklyCharge" type="text" className='w-4/5' label='Weekly Charge' />
-                            <RHFInput name="driverGroup" type="text" className='w-4/5' label='Driver Group' />
+                        <div className="flex flex-col md:flex-row gap-1">
+                            <RHFInput name="accountingRef" type="text" className='w-3/5' label='Accounting Ref' />
+                            <RHFInput name="nominalCode" type="text" className='w-3/5' label='Nominal Code' />
+                            <CustomTooltip
+                                id="tooltip-callSign"
+                                place='top'
+                                content="Unique identifier for the driver"
+                                child={
+                                    <RHFInput name="callSign" type="text" className='w-3/5' label='Call Sign' />}
+                            />
+                            <CustomTooltip
+                                id="tooltip-commission"
+                                place='top'
+                                content="Percentage of the fare that the driver pays to the company"
+                                child={
+                                    <RHFInput name="commission" type="text" className='w-3/5' label='Commission %' />}
+                            />
+                            <CustomTooltip
+                                id="tooltip-weeklyCharge"
+                                place='top'
+                                content="Base weekly charge for the driver"
+                                child={
+                                    <RHFInput name="weeklyCharge" type="text" className='w-3/5' label='Weekly Charge' />}
+                            />
+                            <RHFInput name="driverGroup" type="text" className='w-3/5' label='Driver Group' />
                         </div>
                     </div>
 
@@ -225,11 +244,11 @@ export default function DriverSignUp() {
                     {/* Section 2 */}
                     <div className="py-4">
                         <h3 className="text-lg font-semibold mb-2">License Information</h3>
-                        <div className="flex justify-start gap-4">
-                            <div className="flex flex-col mb-2">
+                        <div className="flex flex-col md:flex-row justify-start gap-4">
+                            <div className="flex flex-col mb-2 gap-1">
                                 <RHFInput name="dvlaLicenseNumber" type="text" label='DVLA License Number' />
                                 <button
-                                    className={`px-4 py-2 text-white rounded text-sm bg-blue-500 hover:bg-blue-700 transition duration-300`}
+                                    className={`px-4 py-2 text-white rounded text-sm bg-blue-500 hover:bg-blue-700 transition duration-300 w-1/2 md:w-auto`}
                                     onClick={onValidateLicense}
                                     type="button"
                                 >
@@ -238,10 +257,10 @@ export default function DriverSignUp() {
                             </div>
                             {licenseDetails && (
                                 <>
-                                    {Object.entries(licenseDetails).map(([key, value]) => (
-                                        <div key={key} className='flex flex-col'>
-                                            <div className='text-blue-700'>{key}:</div>
-                                            <div> {value}</div>
+                                    {Object.entries(licenseDetails).slice(1).map(([key, value]) => (
+                                        <div key={key} className='flex md:flex-col gap-1 md:gap-0'>
+                                            <div className='text-blue-700'>{key}: {value}</div>
+                                            {/* <div>{value}</div> */}
                                         </div>
                                     ))}
                                 </>
@@ -275,11 +294,11 @@ export default function DriverSignUp() {
                     {/* Section 4 */}
                     <div className="pt-4">
                         <h3 className="text-lg font-semibold mb-2">Vehicle Information</h3>
-                        <div className="flex justify-start gap-4">
+                        <div className="flex flex-col md:flex-row justify-start gap-4">
                             <div className="flex flex-col mb-2">
-                                <RHFInput name="vehicleRegNumber" type="text" className='w-2/3' label='Registration' />
+                                <RHFInput name="vehicleRegNumber" type="text" label='Registration' />
                                 <button
-                                    className={`px-4 py-2 text-white rounded text-sm bg-blue-500 hover:bg-blue-700 transition duration-300`}
+                                    className={`px-4 py-2 text-white rounded text-sm bg-blue-500 hover:bg-blue-700 transition duration-300 w-1/2 md:w-auto`}
                                     onClick={onCheckCarReg}
                                     type="button"
                                 >
@@ -288,10 +307,10 @@ export default function DriverSignUp() {
                             </div>
                             {carDetails && (
                                 <>
-                                    {Object.entries(carDetails).map(([key, value]) => (
-                                        <div key={key} className='flex flex-col'>
-                                            <div className='text-blue-700'>{key}:</div>
-                                            <div> {value}</div>
+                                    {Object.entries(carDetails).slice(1).map(([key, value]) => (
+                                        <div key={key} className='flex md:flex-col gap-1 md:gap-0'>
+                                            <div className='text-blue-700'>{key}: {value}</div>
+                                            {/* <div>{value}</div> */}
                                         </div>
                                     ))}
                                 </>
@@ -311,7 +330,7 @@ export default function DriverSignUp() {
                             <RHFInput name="issuedBy" type="text" label='Issued by' />
                         </div>
                         <div className="flex flex-col mb-2">
-                            <div className="flex flex-col mb-2 gap-2 w-1/4">
+                            <div className="flex flex-col mb-2 gap-2 w-auto md:w-1/4">
                                 <ToggleSwitch
                                     label="PPE Barrier"
                                     toggleState={toggle_ppe}
@@ -349,20 +368,22 @@ export default function DriverSignUp() {
                                 />
 
                             </div>
-                            <RHFInput name="insuranceCertNumber" type="text" className='my-2 w-1/4' label='Insurance Certificate Number' />
+                            <div className='mt-5'>
+                                <RHFInput name="insuranceCertNumber" type="text" className='w-1/4' label='Insurance Certificate Number' />
+                            </div>
                         </div>
                     </div>
 
                 </div>
 
                 {/* Right col */}
-                <div className="col-span-5 p-4">
+                <div className="col-span-5 px-4 py-1">
                     {errors.root && (
                         <p className="text-red-500 text-sm mb-4">
                             {errors.root.message}
                         </p>
                     )}
-                    <h2 className="text-2xl font-bold mb-4">Documents and expiry dates</h2>
+                    <h3 className="text-2xl mb-4">Documents and expiry dates</h3>
                     <div className="mb-4 flex flex-col gap-2">
                         {DOCUMENT_TYPES.map((doc) => (
                             <RHFDocUpload
@@ -373,9 +394,11 @@ export default function DriverSignUp() {
                             />
                         ))}
                     </div>
-                    <Button label='Submit' type="submit" />
+                    <div className="flex justify-center md:justify-start">
+                        <Button label='Submit' type="submit" />
+                    </div>
                 </div>
-            </FormProvider >
-        </div >
+            </FormProvider>
+        </div>
     );
 };

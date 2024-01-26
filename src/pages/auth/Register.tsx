@@ -47,10 +47,10 @@ export default function Register() {
     };
 
     return (
-        <div className="flex flex-col h-screen">
+        <div className="flex flex-col h-screen bg-gray-300 gap-2">
             <Navbar userName="Operator Name" />
-            <div className="flex flex-col justify-center items-center h-screen bg-gray-300 gap-10">
-                <FormProvider methods={methods} onSubmit={handleSubmit(handleSignUp)} className="p-8 w-96 bg-white shadow-md rounded-lg">
+            <div className="flex flex-col justify-center items-center h-screen gap-10">
+                <FormProvider methods={methods} onSubmit={handleSubmit(handleSignUp)} className="p-8 w-full max-w-sm bg-white shadow-md rounded-lg">
                     <div className="mb-6 text-center items-center flex flex-col">
                         <img src="/aryvologo.png" alt="Company Logo" className="mb-5 w-32" />
                         <h1 className="text-2xl font-bold">Sign Up</h1>
