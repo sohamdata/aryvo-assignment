@@ -183,7 +183,13 @@ export default function DriverSignUp() {
 
                             </div>
                             <div className="flex flex-col">
-                                <RHFInput name="email" type="email" label='Enter Email Address' />
+                                <CustomTooltip
+                                    id="tooltip-existmail"
+                                    place='top'
+                                    content="mock api, try 'test@gmail.com'"
+                                    child={
+                                        <RHFInput name="email" type="email" label='Enter Email Address' />}
+                                />
                                 {errors.email && (
                                     <p className="text-red-500 text-sm mt-2">
                                         {errors.email.message}
@@ -246,7 +252,13 @@ export default function DriverSignUp() {
                         <h3 className="text-lg font-semibold mb-2">License Information</h3>
                         <div className="flex flex-col md:flex-row justify-start gap-4">
                             <div className="flex flex-col mb-2 gap-1">
-                                <RHFInput name="dvlaLicenseNumber" type="text" label='DVLA License Number' />
+                                <CustomTooltip
+                                    id="tooltip-dvla"
+                                    place='top'
+                                    content="mock api, try '1234'"
+                                    child={
+                                        <RHFInput name="dvlaLicenseNumber" type="text" label='DVLA License Number' />}
+                                />
                                 <button
                                     className={`px-4 py-2 text-white rounded text-sm bg-blue-500 hover:bg-blue-700 transition duration-300 w-1/2 md:w-auto`}
                                     onClick={onValidateLicense}
@@ -296,7 +308,13 @@ export default function DriverSignUp() {
                         <h3 className="text-lg font-semibold mb-2">Vehicle Information</h3>
                         <div className="flex flex-col md:flex-row justify-start gap-4">
                             <div className="flex flex-col mb-2">
-                                <RHFInput name="vehicleRegNumber" type="text" label='Registration' />
+                                <CustomTooltip
+                                    id="tooltip-reg"
+                                    place='top'
+                                    content="mock api, try '1234'"
+                                    child={
+                                        <RHFInput name="vehicleRegNumber" type="text" label='Registration' />}
+                                />
                                 <button
                                     className={`px-4 py-2 text-white rounded text-sm bg-blue-500 hover:bg-blue-700 transition duration-300 w-1/2 md:w-auto`}
                                     onClick={onCheckCarReg}
@@ -377,7 +395,7 @@ export default function DriverSignUp() {
                 </div>
 
                 {/* Right col */}
-                <div className="col-span-5 px-4 py-1">
+                <div className="col-span-5 px-4 py-1 mb-5">
                     {errors.root && (
                         <p className="text-red-500 text-sm mb-4">
                             {errors.root.message}
